@@ -6,6 +6,88 @@
 #define ABAJO 80
 #define ENTER 13
 
+// desde aca ---------------------------------------------------------------------
+
+// fue lo mejor que pude hacer ya que la libreria windows.h con conio.h
+// lo interpretan como si fuera bytes de unicode o sea como caracteres raros :,v
+void mostrar_barra_progreso(float duracion_segundos) {
+  int ancho_barra = 30; // Largo de la barra
+  int pasos = 40; // Actualizaciones fluidas (en si mientras mas grande este numero mas lento carga la barra de carga igual)
+  int espera_ms = (int)(duracion_segundos * 1000 / pasos); // Milisegundos por paso
+
+  // por lo que entendi se usa para poder cambiar el color del texto es un enlace 
+  HANDLE hCon = GetStdHandle(STD_OUTPUT_HANDLE); // Handle de la consola
+
+  for (int i = 0; i <= pasos; i++) {
+    int completado = (i * ancho_barra) / pasos; // Bloques completados
+    // Alternar colores para efecto dinámico
+    int color = (i % 2 == 0) ? (FOREGROUND_GREEN | FOREGROUND_BLUE | FOREGROUND_INTENSITY) : // Cian
+                              (FOREGROUND_RED | FOREGROUND_BLUE | FOREGROUND_INTENSITY); // Magenta
+    SetConsoleTextAttribute(hCon, color);
+
+    // Imprimir barra con texto y efecto
+    printf("\rCargando nivel... |=");
+    for (int j = 0; j < completado; j++) printf("=");
+    if (completado < ancho_barra) printf(">"); // Indicador dinámico
+    for (int j = completado + 1; j < ancho_barra; j++) printf("-");
+    printf("=|");
+    fflush(stdout);
+
+    // por eso si aumentamos pasos se demora mas porque sleep su calculo es mayor
+    Sleep(espera_ms); // Espera en milisegundos
+  }
+
+  // Restaurar color blanco y añadir salto de línea
+  SetConsoleTextAttribute(hCon, FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE | FOREGROUND_INTENSITY);
+  printf("\n");
+}
+
+
+// simulacion de juego
+
+void simulacionxd(){
+    system("cls");
+
+    // Texto de introducción tipo Papers, Please
+    char *intro[] = {
+        "Hola cabros dejo este texto por si se les ocurre",
+        "Que mierda colocar aca esta vendria siendo como la intro",
+        "",
+        ">> Fecha: 9 de Noviembre, 1945",
+        ">> Localizacion: Alemania",
+        "",
+        "Su turno ha comenzado.",
+        "Revise los documentos cuidadosamente...",
+        "Dejar pasar a venecos depende de usted.",
+        "",
+        "GLORIA A HITLER."
+    };
+
+    HANDLE hCon = GetStdHandle(STD_OUTPUT_HANDLE);
+
+    // Color verde tenue
+    SetConsoleTextAttribute(hCon, FOREGROUND_GREEN | FOREGROUND_INTENSITY);
+
+    for (int i = 0; i < sizeof(intro) / sizeof(intro[0]); i++) {
+        for (int j = 0; intro[i][j] != '\0'; j++) {
+            printf("%c", intro[i][j]);
+            fflush(stdout);
+            // sleep es la pausa entre lineas
+            Sleep(40); // efecto máquina de escribir
+        }
+        printf("\n");
+        Sleep(300); // breve pausa entre líneas
+    }
+
+    // Espera final y restaurar color
+    Sleep(1000);
+    SetConsoleTextAttribute(hCon, FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE | FOREGROUND_INTENSITY);
+    printf("\nPresione una tecla para continuar...");
+    getch();
+}
+
+// hasta aca ---------------------------------------------------------------------
+
 // Imprime el menú con la opción seleccionada resaltada (con colores)
 void mostrar_menu(int seleccion) {
   // Array con las opciones del menú
@@ -56,6 +138,9 @@ void mostrar_menu(int seleccion) {
   // Al salir de la función, los colores ya quedaron como los de texto blanco/fondo negro
 }
 
+
+// nose a ustedes pero se me hace raro que haya un jugar y un cargar yo eliminaria la opcion de cargar partida u pondria otra cosa en esa seccion 
+
 int main() {
   int seleccion = 0;
   int tecla;
@@ -82,6 +167,8 @@ int main() {
     break;
   case 1:
     printf("Has seleccionado: Cargar partida\n");
+    mostrar_barra_progreso(1);
+    simulacionxd();
     break;
   case 2:
     printf("Has seleccionado: Opciones\n");
