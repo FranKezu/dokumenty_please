@@ -19,3 +19,17 @@
 </div>
 
 </div>
+
+---
+
+## 🛠️ Requisitos Previos
+
+- [Git](https://git-scm.com/) instalado.
+- Compilador **GCC**.
+- **PowerShell** (recomendado para Windows).
+- Sistema operativo: Windows, Linux o macOS.
+- [Visual Studio Code](https://code.visualstudio.com/) (recomendado).
+
+---
+
+![GIF Externo](https://cdn.hashnode.com/res/hashnode/image/upload/v1666975601963/U7VvHXeDV.gif)
