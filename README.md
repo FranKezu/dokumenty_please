@@ -2,7 +2,7 @@
 
 # Proyecto que nose como quieren que se llame el juego :v
 
-<img src="https://i.ytimg.com/vi/F7QSU7MV0hk/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLC8vkGPy06XU2Oc5h2EGvubK4La3A" width="200px" alt="Logo del juego"/>
+<img src="https://i.ytimg.com/vi/F7QSU7MV0hk/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLC8vkGPy06XU2Oc5h2EGvubK4La3A" width="350px" alt="Logo del juego"/>
 
 ## 👥 Integrantes
 
