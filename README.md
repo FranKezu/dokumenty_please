@@ -13,7 +13,7 @@
 | **Franco Bernal** | **Ariel Leiva** |
 
 | <img src="https://http2.mlstatic.com/D_NQ_NP_718068-MLA83745617934_042025-O.webp" width="150px" alt="Felipe Romero"/> | <img src="https://tr.rbxcdn.com/180DAY-4c077d0d72a520f50e4180aef89c2ece/420/420/Hat/Png/noFilter" width="150px" alt="Hugo Palomino"/> |
-
+|:--:|:--:|
 | **Felipe Romero** | **Hugo Palomino** |
 
 </div>
