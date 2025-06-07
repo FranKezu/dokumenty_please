@@ -62,18 +62,18 @@ void simulacionxd(){
 
     // Texto de introducción tipo Papers, Please
     char *intro[] = {
-        "Sistema de Control Fronterizo Internacional - Terminal 3",
-        "Unidad de Verificación de Documentos y Seguridad Aérea",
+        "Sistema de Control Fronterizo del Estado Socialista",
+        "Oficina de Verificación de Documentos y Seguridad del Pueblo",
         "",
-        ">> Fecha: 6 de Junio, 2025",
-        ">> Localización: Aeropuerto Central de Eisenstadt",
+        ">> Fecha: 6 de Junio de 1985",
+        ">> Localización: Puesto Fronterizo Central de Novagrad",
         "",
-        "Ha sido asignado al puesto de inspección.",
-        "Revise documentos con extrema atención.",
-        "Toda decisión de admisión o denegación es su responsabilidad.",
-        "Errores serán penalizados. Recompensas por eficiencia.",
+        "Camarada, ha sido asignado al puesto de inspección del Partido.",
+        "Examine los documentos con máxima vigilancia.",
+        "Cada decisión de admisión o rechazo recae bajo su responsabilidad.",
+        "Errores serán castigados severamente. Lealtad y precisión serán recompensadas.",
         "",
-        "GLORIA A LA AUTORIDAD."
+        "¡GLORIA AL PARTIDO Y A LA MADRE PATRIA!"
     };
 
 
@@ -87,14 +87,14 @@ void simulacionxd(){
             printf("%c", intro[i][j]);
             fflush(stdout);
             // sleep es la pausa entre lineas
-            Sleep(17); // efecto máquina de escribir
+            Sleep(15); // efecto máquina de escribir
         }
         printf("\n");
-        Sleep(255); // breve pausa entre líneas
+        Sleep(130); // breve pausa entre líneas
     }
 
     // Espera final y restaurar color
-    Sleep(500);
+    Sleep(450);
     SetConsoleTextAttribute(hCon, FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE | FOREGROUND_INTENSITY);
     printf("\nPresione una tecla para continuar...");
     getch();
@@ -179,7 +179,7 @@ int main() {
   switch (seleccion) {
   case 0:
     printf("Has seleccionado: Jugar\n");
-    mostrar_barra_progreso(1);
+    mostrar_barra_progreso(0.8);
     simulacionxd();
     break;
   case 1:
