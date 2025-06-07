@@ -2,7 +2,7 @@
 
 # Proyecto que nose como quieren que se llame el juego :v
 
-<img src="fotoDePortada.png" width="350px" alt="Logo del juego"/>
+<img src="fotoDePortada.png" width="450px" alt="Logo del juego"/>
 
 ## 👥 Integrantes
 
