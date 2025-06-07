@@ -1,6 +1,6 @@
 <div align="center">
 
-# Papeles porfavor 
+# Dokumenty please
 
 <img src="portada.jpg" width="450px" alt="Logo del juego"/>
 
