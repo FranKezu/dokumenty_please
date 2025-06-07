@@ -1,10 +1,12 @@
+# 👾 Dokumenty Please
+
+* **👨‍💻 Integrantes:** Ariel Leiva, Franco Bernal, Hugo Palomino y Felipe Romero
+* **📚 Asignatura:** Estructura de Datos (ICI2240-2)
+* **📅 Fecha de entrega:** 00-00-2030
+
 <div align="center">
 
-# Dokumenty please
-
 <img src="data/portada.jpg" width="450px" alt="Logo del juego"/>
-
-## 👥 Integrantes
 
 <div style="display: flex; justify-content: center; flex-wrap: wrap; gap: 20px;">
 
@@ -20,16 +22,44 @@
 
 </div>
 
----
 
-## 🛠️ Requisitos Previos
+## 🚀 ¿Cómo ejecutar el juego?
 
-- [Git](https://git-scm.com/) instalado.
-- Compilador **GCC**.
-- **PowerShell** (recomendado para Windows).
-- Sistema operativo: Windows, Linux o macOS.
-- [Visual Studio Code](https://code.visualstudio.com/) (recomendado).
+### 🟢 Opción 1: Ejecutar el archivo
+
+Puedes ejecutar el juego directamente haciendo doble clic en el archivo `run` que se encuentra en la carpeta del proyecto.
+Esto abrirá automáticamente una consola con el juego corriendo.
 
 ---
 
-![GIF Externo](https://cdn.hashnode.com/res/hashnode/image/upload/v1666975601963/U7VvHXeDV.gif)
+### 🛠️ Opción 2: Compilar manualmente
+
+1. Abre la consola de Visual Studio Code.
+2. Compila el programa con el siguiente comando:
+
+```bash
+gcc main.c src\extra.c src\hashmap.c src\heap.c src\list.c src\map.c src\menu.c -o bin\run.exe
+```
+
+3. Luego ejecútalo con:
+
+```bash
+bin\run.exe
+```
+
+---
+
+### 🔧 Requisitos previos (sólo si deseas compilarlo manualmente)
+
+- Tener instalado **Visual Studio Code.**
+- Instalar la extensión para **C/C++**.
+- Tener instalado un compilador para C, como **MinGW.**
+
+---
+
+### 📂 Archivos requeridos (Incluídos en el juego)
+
+- `/bin`: almacena el código compilado.
+- `/data`: datos que requiera el juego para funcionar (audios, imágenes, etc..)
+- `/include` y `/src` : funciones ordenadas que necesita el juego.
+- `main.c` : código base del juego.
