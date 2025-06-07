@@ -2,7 +2,7 @@
 
 # Dokumenty please
 
-<img src="portada.jpg" width="450px" alt="Logo del juego"/>
+<img src="data/portada.jpg" width="450px" alt="Logo del juego"/>
 
 ## 👥 Integrantes
 
