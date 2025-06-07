@@ -7,7 +7,6 @@ Ariel Leiva, Franco Bernal, Hugo Palomino, Felipe Romero
 Estructura de Datos (ICI2240-2)  
 
 ### 📅 **Fecha de entrega**  
-nose cuando se entrega XDDD
 27-06-2025  
 
 <div align="center">
