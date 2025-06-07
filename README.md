@@ -2,7 +2,7 @@
 
 # Papeles porfavor 
 
-<img src="fotoDePortada.png" width="450px" alt="Logo del juego"/>
+<img src="portada.jpg" width="450px" alt="Logo del juego"/>
 
 ## 👥 Integrantes
 
