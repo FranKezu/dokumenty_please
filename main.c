@@ -5,6 +5,7 @@
 #include "include/map.h"
 #include "include/menu.h"
 
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -12,9 +13,13 @@
 #include <conio.h>
 #include <windows.h>
 
+
+
 #define ARRIBA 72
 #define ABAJO 80
 #define ENTER 13
+
+void inicio_turno(int dia);
 
 void partida_nueva(){
 
@@ -31,10 +36,12 @@ void partida_nueva(){
     "Errores serán castigados severamente. Lealtad y precisión serán recompensadas.",
     "",
     "¡GLORIA AL PARTIDO Y A LA MADRE PATRIA!",
+    "",
+    "Presione una tecla para continuar...",
     NULL // => Para decirle a la función hasta donde debe imprimir.
   };
 
-  mostrar_barra_progreso(0.8);
+  mostrar_barra_progreso(0.5);
   imprimir(intro);
 }
 
@@ -64,6 +71,8 @@ int main() {
   case 0:
     printf("Has seleccionado: Jugar\n");
     partida_nueva();
+    // si se les ocurre como vaya avanzando los dias porque coloque como valor el 1 del primer dia como recien se inicia la partida
+    inicio_turno(1);
     break;
   case 1:
     printf("Has seleccionado: Cargar partida\n");

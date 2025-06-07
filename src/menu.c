@@ -1,8 +1,15 @@
 #include "../include/menu.h"
+#define MENU_H
 #include <stdio.h>
 #include <stdlib.h>
 #include <conio.h>
 #include <windows.h>
+
+// biblioteca para wav asi me salio nose si ustedes lo hicieron asi
+
+#include <windows.h>
+#include <mmsystem.h>
+#pragma comment(lib, "Winmm.lib")
 
 void mostrar_barra_progreso(float segundos) {
   int ancho_barra = 30; // Largo de la barra
@@ -100,4 +107,48 @@ void menu_principal(int seleccion) {
     }
   }
   // Al salir de la función, los colores ya quedaron como los de texto blanco/fondo negro
+}
+
+
+
+#include <windows.h>
+#include <mmsystem.h>
+#include <stdio.h>
+
+void inicio_turno(int dia) {
+    system("cls"); // Limpiar pantalla
+
+    printf("  Inicializando cabina de control");
+    for (int i = 0; i < 3; i++) {
+        Sleep(500);
+        printf(".");
+    }
+    printf("\n");
+    Sleep(600);
+
+    printf("  Preparando sellos oficiales y escáner");
+    for (int i = 0; i < 3; i++) {
+        Sleep(500);
+        printf(".");
+    }
+    printf("\n");
+
+    Sleep(1000);
+    printf("\n  >>> Puesto de inspección operativo.\n");
+    Sleep(1000);
+    printf("  >>> Puede comenzar el control de documentos.\n\n");
+    Sleep(1500);
+
+    printf("\n*Sonido metálico de puerta abriéndose lentamente*\n");
+    Sleep(1500);
+    /*
+    if (!PlaySound(TEXT("puerta.wav"), NULL, SND_FILENAME | SND_ASYNC)) {
+        printf("[PUERTA]: *Error al reproducir el sonido*\n");
+    } else {
+        printf("[PUERTA]: *Sonido de puerta reproduciéndose*\n");
+    }
+    */
+    Sleep(1000); 
+    printf("Un visitante entra lentamente al puesto de control...\n");
+    Sleep(2000);
 }
