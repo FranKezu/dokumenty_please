@@ -2,7 +2,7 @@
 
 # Proyecto que nose como quieren que se llame el juego :v
 
-<img src="https://static0.gamerantimages.com/wordpress/wp-content/uploads/2023/09/papers-please-how-to-get-all-endings.jpg" width="350px" alt="Logo del juego"/>
+<img src="fotoDePortada.png" width="350px" alt="Logo del juego"/>
 
 ## 👥 Integrantes
 
