@@ -1,6 +1,6 @@
 <div align="center">
 
-# Proyecto que nose como quieren que se llame el juego :v
+# Papeles porfavor 
 
 <img src="fotoDePortada.png" width="450px" alt="Logo del juego"/>
 
