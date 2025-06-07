@@ -1,26 +1,47 @@
-# 👾 Dokumenty Please
+# 🎮 *Dokumenty Please*
 
-* **👨‍💻 Integrantes:** Ariel Leiva, Franco Bernal, Hugo Palomino y Felipe Romero
-* **📚 Asignatura:** Estructura de Datos (ICI2240-2)
-* **📅 Fecha de entrega:** 00-00-2030
+### 🧑‍🤝‍🧑 **Integrantes**  
+Ariel Leiva, Franco Bernal, Hugo Palomino, Felipe Romero  
+
+### 🧾 **Asignatura**  
+Estructura de Datos (ICI2240-2)  
+
+### 📅 **Fecha de entrega**  
+nose cuando se entrega XDDD
+00-00-2030  
 
 <div align="center">
 
-<img src="data/portada.jpg" width="450px" alt="Logo del juego"/>
+<img src="data/portada.jpg" width="450px" alt="Portada del proyecto"/>
 
-<div style="display: flex; justify-content: center; flex-wrap: wrap; gap: 20px;">
+---
 
-| <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRMw8JU2VUUQK4rV54RXYVJgQripZUk6F1zCg&s" width="150px" alt="Franco Bernal"/> | <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS4-3ekCtjuGKaoh_Ns_A7nDhVX4qlm28itlw&s" width="150px" alt="Ariel Leiva"/> |
-|:--:|:--:|
-| **Franco Bernal** | **Ariel Leiva** |
+### 📸 **Presentación del equipo**
 
-| <img src="https://http2.mlstatic.com/D_NQ_NP_718068-MLA83745617934_042025-O.webp" width="150px" alt="Felipe Romero"/> | <img src="https://tr.rbxcdn.com/180DAY-4c077d0d72a520f50e4180aef89c2ece/420/420/Hat/Png/noFilter" width="150px" alt="Hugo Palomino"/> |
-|:--:|:--:|
-| **Felipe Romero** | **Hugo Palomino** |
+<table>
+  <tr>
+    <td align="center">
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRMw8JU2VUUQK4rV54RXYVJgQripZUk6F1zCg&s" width="140px" alt="Franco Bernal"/><br/>
+      <strong>Franco Bernal</strong>
+    </td>
+    <td align="center">
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS4-3ekCtjuGKaoh_Ns_A7nDhVX4qlm28itlw&s" width="140px" alt="Ariel Leiva"/><br/>
+      <strong>Ariel Leiva</strong>
+    </td>
+    <td align="center">
+      <img src="https://http2.mlstatic.com/D_NQ_NP_718068-MLA83745617934_042025-O.webp" width="140px" alt="Felipe Romero"/><br/>
+      <strong>Felipe Romero</strong>
+    </td>
+    <td align="center">
+      <img src="https://tr.rbxcdn.com/180DAY-4c077d0d72a520f50e4180aef89c2ece/420/420/Hat/Png/noFilter" width="140px" alt="Hugo Palomino"/><br/>
+      <strong>Hugo Palomino</strong>
+    </td>
+  </tr>
+</table>
 
 </div>
 
-</div>
+---
 
 
 ## 🚀 ¿Cómo ejecutar el juego?
