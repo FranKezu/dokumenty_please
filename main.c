@@ -1,11 +1,19 @@
+#include "include/extra.h"
+#include "include/hashmap.h"
+#include "include/heap.h"
+#include "include/list.h"
+#include "include/map.h"
+
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <locale.h>
 #include <conio.h>
 #include <windows.h> // Solo funciona en windows
 
 #define ARRIBA 72
 #define ABAJO 80
 #define ENTER 13
-
 // desde aca ---------------------------------------------------------------------
 
 // fue lo mejor que pude hacer ya que la libreria windows.h con conio.h
@@ -48,20 +56,26 @@ void mostrar_barra_progreso(float duracion_segundos) {
 void simulacionxd(){
     system("cls");
 
+    // time_t t = time(NULL);
+    // struct tm tm = *localtime(&t);
+    // idea para colocar la fecha actual 
+
     // Texto de introducción tipo Papers, Please
     char *intro[] = {
-        "Hola cabros dejo este texto por si se les ocurre",
-        "Que mierda colocar aca esta vendria siendo como la intro",
+        "Sistema de Control Fronterizo Internacional - Terminal 3",
+        "Unidad de Verificación de Documentos y Seguridad Aérea",
         "",
-        ">> Fecha: 9 de Noviembre, 1945",
-        ">> Localizacion: Alemania",
+        ">> Fecha: 6 de Junio, 2025",
+        ">> Localización: Aeropuerto Central de Eisenstadt",
         "",
-        "Su turno ha comenzado.",
-        "Revise los documentos cuidadosamente...",
-        "Dejar pasar a venecos depende de usted.",
+        "Ha sido asignado al puesto de inspección.",
+        "Revise documentos con extrema atención.",
+        "Toda decisión de admisión o denegación es su responsabilidad.",
+        "Errores serán penalizados. Recompensas por eficiencia.",
         "",
-        "GLORIA A HITLER."
+        "GLORIA A LA AUTORIDAD."
     };
+
 
     HANDLE hCon = GetStdHandle(STD_OUTPUT_HANDLE);
 
@@ -73,14 +87,14 @@ void simulacionxd(){
             printf("%c", intro[i][j]);
             fflush(stdout);
             // sleep es la pausa entre lineas
-            Sleep(40); // efecto máquina de escribir
+            Sleep(17); // efecto máquina de escribir
         }
         printf("\n");
-        Sleep(300); // breve pausa entre líneas
+        Sleep(255); // breve pausa entre líneas
     }
 
     // Espera final y restaurar color
-    Sleep(1000);
+    Sleep(500);
     SetConsoleTextAttribute(hCon, FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE | FOREGROUND_INTENSITY);
     printf("\nPresione una tecla para continuar...");
     getch();
@@ -93,7 +107,7 @@ void mostrar_menu(int seleccion) {
   // Array con las opciones del menú
   char * opciones[] = {
     "Jugar",
-    "Cargar partida",
+    "Continuar partida",
     "Opciones",
     "Salir",
     "Entrar."
@@ -142,6 +156,7 @@ void mostrar_menu(int seleccion) {
 // nose a ustedes pero se me hace raro que haya un jugar y un cargar yo eliminaria la opcion de cargar partida u pondria otra cosa en esa seccion 
 
 int main() {
+  setlocale(LC_ALL, "es_ES.UTF-8"); // Para que se puedan ver tildes, ñ, y carácteres especiales.
   int seleccion = 0;
   int tecla;
 
@@ -164,11 +179,12 @@ int main() {
   switch (seleccion) {
   case 0:
     printf("Has seleccionado: Jugar\n");
-    break;
-  case 1:
-    printf("Has seleccionado: Cargar partida\n");
     mostrar_barra_progreso(1);
     simulacionxd();
+    break;
+  case 1:
+    printf("Has seleccionado: Continuar partida\n");
+    
     break;
   case 2:
     printf("Has seleccionado: Opciones\n");
