@@ -63,3 +63,17 @@ bin\run.exe
 - `/data`: datos que requiera el juego para funcionar (audios, imágenes, etc..)
 - `/include` y `/src` : funciones ordenadas que necesita el juego.
 - `main.c` : código base del juego.
+
+---
+
+### 🔨 Comentario como grupo
+
+- Como grupo nos fue muy fácil trabajar, programamos siempre juntos, ya sea presencialmente o por discord, por lo que el trabajo fue equitativamente bien distribuido. No tuvimos ningún tipo de inconveniente al realizar el juego.
+
+---
+
+### 🐞 Posibles problemas encontrados
+
+- **Soporte**: solo Windows, usuarios de MacOS podrían tener dificultades ejecutando el programa.
+- **Entrada inválida**: si se ingresan caracteres cuando se solicita un número, el programa puede trabarse.
+- **NO LLEVAMOS NADA XD**: provlema prinsipal a solusionar.
