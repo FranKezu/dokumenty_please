@@ -8,7 +8,7 @@ Estructura de Datos (ICI2240-2)
 
 ### 📅 **Fecha de entrega**  
 nose cuando se entrega XDDD
-00-00-2030  
+27-06-2025  
 
 <div align="center">
 
