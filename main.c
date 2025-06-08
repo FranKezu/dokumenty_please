@@ -5,13 +5,58 @@
 #include "include/map.h"
 #include "include/menu.h"
 
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <stdbool.h>
 #include <locale.h>
 #include <conio.h>
 #include <windows.h>
+
+// Este es el CSV de sujetos/personas.
+typedef struct{
+  char *nombre;
+  char *pais;
+  char *pasaporte;
+  char *antecedentes_penales;
+  char *nacimiento;
+  bool habilitado;
+} sujeto;
+
+// Aquí se guardan todas las personas procesadas.
+typedef struct{
+  sujeto persona; // => Datos de la persona rechazada/aprobada.
+  char *motivo; // => Motivo de la decisión (si es que el usuario decidió escribir)
+  int dia; // => Día en el que fue admitido/rechazado
+  bool decision; // => Decisión del usuario
+} procesado;
+
+typedef struct{
+  char *nombre;
+  int dia;
+  int aura;
+  procesado *personas;
+} partida;
+
+/*Estas fueron las personas que procesaste:
+//IDEA DE TEXTO PARA MOSTRAR AL FINAL DEL JUEGO (CUANDO GANA O PIERDE) es como un resumen
+
+Hugo Palomino
+Razón: enemigo del estado de chile
+FALLA, debiste dejar pasar a Hugo, ya que estaba habilitado, ahora se morirá de frío en las afueras
+-1000 aura.
+
+Ariel Leiva
+Razón: enemigo del estado de chile
+CORRECTO, ariel pudo reunirse con su familiar, era una persona limpia.
++10000 aura.
+
+Franco Bernal
+Razón: persona normal
+FALLA, debiste rechazar la entrada a Franco, llevaba una pistola y mató a dos bebés.
+-1000 aura.
+
+*/
 
 
 
