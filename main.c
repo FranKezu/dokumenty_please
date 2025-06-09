@@ -14,6 +14,10 @@
 #include <conio.h>
 #include <windows.h>
 
+#define ARRIBA 72
+#define ABAJO 80
+#define ENTER 13
+
 void inicio_turno(int dia);
 
 // Estructura que representa los datos de una persona/sujueto que desea ingresar al país
@@ -124,6 +128,44 @@ void crear_partida_nueva() {
   inicio_turno(1);
 }
 
+// Función para crear una nueva partida solicitando el nombre
+void crear_partida_nueva() {
+  system("cls"); // Limpiar pantalla
+  printf("Creando una nueva partida...\n");
+  
+  tipoPartida game;
+
+  char *nombre_partida = leer_nombre_partida();
+  
+  // Inicializar la estructura partida
+  game.nombre_partida = nombre_partida;
+  game.dia_actual = 1; // Iniciar en el primer día
+  game.aura = 0; // Iniciar con aura en 0
+  game.personas = NULL; // Sin personas procesadas inicialmente
+
+  char *intro[] = {
+  "Sistema de Control Fronterizo del Estado Socialista",
+  "Oficina de Verificación de Documentos y Seguridad del Pueblo",
+  "",
+  ">> Fecha: 6 de Junio de 1985",
+  ">> Localización: Puesto Fronterizo Central de Novagrad",
+  "",
+  "Camarada, ha sido asignado al puesto de inspección del Partido.",
+  "Examine los documentos con máxima vigilancia.",
+  "Cada decisión de admisión o rechazo recae bajo su responsabilidad.",
+  "Errores serán castigados severamente. Lealtad y precisión serán recompensadas.",
+  "",
+  "¡GLORIA AL PARTIDO Y A LA MADRE PATRIA!",
+  "",
+  "Presione una tecla para continuar...",
+  NULL // => Para decirle a la función hasta donde debe imprimir.
+  };
+
+  mostrar_barra_progreso(0.5);
+  imprimir(intro);
+  inicio_turno(1);
+}
+
 
 /*Estas fueron las personas que procesaste:
 //IDEA DE TEXTO PARA MOSTRAR AL FINAL DEL JUEGO (CUANDO GANA O PIERDE) es como un resumen
@@ -144,14 +186,6 @@ FALLA, debiste rechazar la entrada a Franco, llevaba una pistola y mató a dos b
 -1000 aura.
 
 */
-
-
-
-#define ARRIBA 72
-#define ABAJO 80
-#define ENTER 13
-
-
 
 int main() {
   setlocale(LC_ALL, "es_ES.UTF-8"); // Para que se puedan ver tildes, ñ, y carácteres especiales.
