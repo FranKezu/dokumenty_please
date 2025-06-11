@@ -45,7 +45,7 @@ typedef struct {
   int ID; // Se utiliza para asignarle este pasaporte al sujeto que tenga la misma ID.
   char *nombre; // Es el nombre completo del sujeto.
   char *pais; // País emisor del pasaporte.
-  char *numero; // Número del pasaporte.
+  char *documento; // Número de documento.
   char *emision; //  Fecha de emisión del pasaporte.
   char *caducidad; // Fecha de expiración del pasaporte.
 } tipoPasaporte;
@@ -63,10 +63,10 @@ typedef struct {
   char *nombre_partida; // Nombre de la partida.
   int dia_actual; // Día en que actualmente está la partida.
   int aura; // Representa la puntuación acumulada.
-  tipoProcesado *personas; // Lista de tipo estructura procesado, que almacenará la información de los sujetos procesados por el jugador.
+  tipoProcesado *listaPersonas; // Lista de tipo estructura procesado, que almacenará la información de los sujetos procesados por el jugador.
 } tipoPartida;
 
-char * leer_nombre_partida() {
+char *leer_nombre_partida() {
   char buffer[51];
   while (1) {
     printf("Ingrese el nombre de la partida: ");
@@ -92,11 +92,12 @@ char * leer_nombre_partida() {
 }
 
 // Función para crear una nueva partida solicitando el nombre
-void crear_partida_nueva() {
+void crear_partida() {
   system("cls"); // Limpiar pantalla
   printf("Creando una nueva partida...\n");
   
   tipoPartida game;
+
   char *nombre_partida = leer_nombre_partida();
   
   // Inicializar la estructura partida
@@ -126,44 +127,35 @@ void crear_partida_nueva() {
   mostrar_barra_progreso(0.5);
   imprimir(intro);
   inicio_turno(1);
+
+  tipoPartida partida_nueva;
+  // guardar el archivo en el csv
+  // empezar_partida(partida_nueva)
 }
 
-// Función para crear una nueva partida solicitando el nombre
-void crear_partida_nueva() {
-  system("cls"); // Limpiar pantalla
-  printf("Creando una nueva partida...\n");
-  
-  tipoPartida game;
+void cargar_partida(tipoPartida archivo_guardado){
 
-  char *nombre_partida = leer_nombre_partida();
-  
-  // Inicializar la estructura partida
-  game.nombre_partida = nombre_partida;
-  game.dia_actual = 1; // Iniciar en el primer día
-  game.aura = 0; // Iniciar con aura en 0
-  game.personas = NULL; // Sin personas procesadas inicialmente
+  if(archivo_guardado == NULL){
+    printf("No se encontraron partidas guardadas!");
+    return;
+  }
 
-  char *intro[] = {
-  "Sistema de Control Fronterizo del Estado Socialista",
-  "Oficina de Verificación de Documentos y Seguridad del Pueblo",
-  "",
-  ">> Fecha: 6 de Junio de 1985",
-  ">> Localización: Puesto Fronterizo Central de Novagrad",
-  "",
-  "Camarada, ha sido asignado al puesto de inspección del Partido.",
-  "Examine los documentos con máxima vigilancia.",
-  "Cada decisión de admisión o rechazo recae bajo su responsabilidad.",
-  "Errores serán castigados severamente. Lealtad y precisión serán recompensadas.",
-  "",
-  "¡GLORIA AL PARTIDO Y A LA MADRE PATRIA!",
-  "",
-  "Presione una tecla para continuar...",
-  NULL // => Para decirle a la función hasta donde debe imprimir.
-  };
+  // aqui habria un menu que mostrara todas las partidas guardadas
+  // dejando elegir al usuario cual quiere cargar
 
-  mostrar_barra_progreso(0.5);
-  imprimir(intro);
-  inicio_turno(1);
+  //empezar_partida(guardado_elegido)
+
+  return;
+}
+
+void empezar_partida(){
+  //mostrar_menu_dia()
+  //guardar_progreso()
+  return;
+}
+
+void mostrar_guia(){
+  return;
 }
 
 
@@ -193,6 +185,8 @@ int main() {
   int seleccion = 0;
   int tecla;
 
+  // tipoPartida *guardado = leer_linea_csv();
+
   do {
     menu_principal(seleccion);
     tecla = getch();
@@ -212,16 +206,15 @@ int main() {
   switch (seleccion) {
   case 0:
     printf("Has seleccionado: Jugar\n");
-    
-    crear_partida_nueva();
+    crear_partida();
     break;
   case 1:
     printf("Has seleccionado: Cargar partida\n");
-    //cargar_partida();
+    cargar_partida();
     break;
   case 2:
     printf("Has seleccionado: Reglas\n");
-    //mostrar_reglas();
+    mostrar_guia();
     break;
   case 3:
     printf("Saliendo del juego...\n");

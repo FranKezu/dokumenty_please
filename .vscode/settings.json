@@ -1,9 +1,0 @@
-{
-    "files.associations": {
-        "menu.h": "c",
-        "hashmap.h": "c",
-        "extra.h": "c",
-        "string.h": "c",
-        "locale.h": "c"
-    }
-}
