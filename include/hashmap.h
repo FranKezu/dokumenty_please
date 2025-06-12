@@ -32,4 +32,6 @@ void enlarge(HashMap * map);
 
 int is_equal(char *key1, char *key2);
 
+int sizeMap(HashMap *map);
+
 #endif /* HashMap_h */

@@ -63,10 +63,10 @@ typedef struct {
   char *nombre_partida; // Nombre de la partida.
   int dia_actual; // Día en que actualmente está la partida.
   int aura; // Representa la puntuación acumulada.
-  tipoProcesado *listaPersonas; // Lista de tipo estructura procesado, que almacenará la información de los sujetos procesados por el jugador.
+  //tipoProcesado *listaPersonas; // Lista de tipo estructura procesado, que almacenará la información de los sujetos procesados por el jugador.
 } tipoPartida;
 
-char *leer_nombre_partida() {
+char *leer_char() {
   char buffer[51];
   while (1) {
     printf("Ingrese el nombre de la partida: ");
@@ -91,20 +91,60 @@ char *leer_nombre_partida() {
   }
 }
 
+HashMap *leer_partidas() {
+  FILE *archivo = fopen("data/guardado.csv", "r");
+
+  if (!archivo) {
+    printf("Error al abrir el archivo %s\n", "data/guardado.csv");
+    return NULL;
+  }
+
+  HashMap *mapa = createMap(100);
+  char **campos;
+  // Leer y descartar encabezado
+  campos = leer_linea_csv(archivo, ',');
+  while ((campos = leer_linea_csv(archivo, ',')) != NULL) {
+    if (!campos[0]) continue;
+      tipoPartida *partida = malloc(sizeof(tipoPartida));
+      partida->nombre_partida = strdup(campos[0]);
+      partida->dia_actual = atoi(campos[1]);
+      partida->aura = atoi(campos[2]);
+      //partida->listaPersonas = NULL; // No se carga de momento
+      insertMap(mapa, partida->nombre_partida, partida);
+  }
+  fclose(archivo);
+  return mapa;
+}
+
 // Función para crear una nueva partida solicitando el nombre
-void crear_partida() {
+void crear_partida(HashMap *mapa_partidas) {
   system("cls"); // Limpiar pantalla
   printf("Creando una nueva partida...\n");
-  
-  tipoPartida game;
+  char *nombre = leer_char();
 
-  char *nombre_partida = leer_nombre_partida();
+  //Verificar nombre duplicado (aquí es cuando el hashmap brilla O(1) chabales)
+  Pair *temp = searchMap(mapa_partidas, nombre);
+  if (temp != NULL) {
+    printf("\nYa existe una partida con ese nombre, por favor intenta con otro.\n");
+    return;
+  }
   
+  //Abrir archivo
+  FILE *archivo = fopen("data/guardado.csv", "a");
+
   // Inicializar la estructura partida
-  game.nombre_partida = nombre_partida;
-  game.dia_actual = 1; // Iniciar en el primer día
-  game.aura = 0; // Iniciar con aura en 0
-  game.personas = NULL; // Sin personas procesadas inicialmente
+  tipoPartida *nueva = malloc(sizeof(tipoPartida));
+  nueva->nombre_partida = strdup(nombre);
+  nueva->dia_actual = 1;
+  nueva->aura = 0;
+  //nueva.listaPersonas = NULL; // Lista vacía
+
+  // Guardar línea con lista vacía
+  fprintf(archivo, "%s,%d,%d,\n", nueva->nombre_partida, nueva->dia_actual, nueva->aura);
+  fclose(archivo);
+  insertMap(mapa_partidas, nueva->nombre_partida, nueva);
+
+  printf("\nPartida '%s' creada exitosamente.\n", nueva->nombre_partida);
 
   char *intro[] = {
   "Sistema de Control Fronterizo del Estado Socialista",
@@ -121,104 +161,104 @@ void crear_partida() {
   "¡GLORIA AL PARTIDO Y A LA MADRE PATRIA!",
   "",
   "Presione una tecla para continuar...",
-  NULL // => Para decirle a la función hasta donde debe imprimir.
-  };
-
-  mostrar_barra_progreso(0.5);
+  NULL}; // => Para decirle a la función hasta donde debe imprimir.
   imprimir(intro);
-  inicio_turno(1);
-
-  tipoPartida partida_nueva;
-  // guardar el archivo en el csv
-  // empezar_partida(partida_nueva)
 }
 
-void cargar_partida(tipoPartida archivo_guardado){
+void cargar_partida(HashMap *mapa_partidas){
 
-  if(archivo_guardado == NULL){
-    printf("No se encontraron partidas guardadas!");
+  if(firstMap(mapa_partidas) == NULL){
+    puts("No se encontraron partidas guardadas.");
     return;
   }
 
-  // aqui habria un menu que mostrara todas las partidas guardadas
-  // dejando elegir al usuario cual quiere cargar
+  //Mostrar partidas disponibles al jugador.
+  puts("Partidas guardadas disponibles:\n");
+  int cantidad = sizeMap(mapa_partidas);
+  char *nombres[cantidad]; // Array temporal.
+  int i = 0;
 
-  //empezar_partida(guardado_elegido)
+  Pair *par = firstMap(mapa_partidas);
+  while (par != NULL && i < cantidad) {
+    nombres[i] = par->key;
+    printf("%d. %s\n", i + 1, nombres[i]);
+    i++;
+    par = nextMap(mapa_partidas);
+  }
 
-  return;
+  //Opciones para el jugador
+  int opcion;
+  printf("\nSeleccione una partida por número (1-%d): ", cantidad);
+  scanf("%d", &opcion);
+  getchar(); // Limpiar el buffer
+  if (opcion < 1 || opcion > cantidad) {
+    printf("Selección inválida.\n");
+    return;
+  }
+
+  // Obtener la partida seleccionada
+  char *nombre_seleccionado = nombres[opcion - 1];
+  Pair *partida_pair = searchMap(mapa_partidas, nombre_seleccionado);
+  if (partida_pair == NULL || partida_pair->value == NULL) {
+    printf("Error al cargar la partida.\n");
+    return;
+  }
+  tipoPartida *partida = (tipoPartida *) partida_pair->value;
+  printf("\nPartida '%s' cargada exitosamente.\n", partida->nombre_partida);
+  //empezar_partida(partida);
 }
 
 void empezar_partida(){
   //mostrar_menu_dia()
   //guardar_progreso()
-  return;
 }
 
 void mostrar_guia(){
-  return;
 }
-
-
-/*Estas fueron las personas que procesaste:
-//IDEA DE TEXTO PARA MOSTRAR AL FINAL DEL JUEGO (CUANDO GANA O PIERDE) es como un resumen
-
-Hugo Palomino
-Razón: enemigo del estado de chile
-FALLA, debiste dejar pasar a Hugo, ya que estaba habilitado, ahora se morirá de frío en las afueras
--1000 aura.
-
-Ariel Leiva
-Razón: enemigo del estado de chile
-CORRECTO, ariel pudo reunirse con su familiar, era una persona limpia.
-+10000 aura.
-
-Franco Bernal
-Razón: persona normal
-FALLA, debiste rechazar la entrada a Franco, llevaba una pistola y mató a dos bebés.
--1000 aura.
-
-*/
 
 int main() {
   setlocale(LC_ALL, "es_ES.UTF-8"); // Para que se puedan ver tildes, ñ, y carácteres especiales.
 
   int seleccion = 0;
   int tecla;
+  bool salir = false;
 
-  // tipoPartida *guardado = leer_linea_csv();
+  HashMap * mapa_partidas = leer_partidas();
+  while (!salir) {
+    do {
+      menu_principal(seleccion);
+      tecla = getch();
 
-  do {
-    menu_principal(seleccion);
-    tecla = getch();
+      if (tecla == 0 || tecla == 224) { // Tecla especial (como flechas)
+        tecla = getch(); // Obtener código real
+        if (tecla == ARRIBA && seleccion > 0)
+          seleccion--;
+        if (tecla == ABAJO && seleccion < 3)
+          seleccion++;
+      }
+    } while (tecla != ENTER);
 
-    if (tecla == 0 || tecla == 224) { // Tecla especial (como flechas)
-      tecla = getch(); // Obtener código real
-      if (tecla == ARRIBA && seleccion > 0)
-        seleccion--;
-      if (tecla == ABAJO && seleccion < 3)
-        seleccion++;
+    // Una vez que se presionó ENTER, limpiar pantalla y mostrar la selección definitiva
+    system("cls");
+    switch (seleccion) {
+    case 0:
+      printf("Has seleccionado: Jugar\n");
+      crear_partida(mapa_partidas);
+      break;
+    case 1:
+      printf("Has seleccionado: Cargar partida\n");
+      cargar_partida(mapa_partidas);
+      break;
+    case 2:
+      printf("Has seleccionado: Reglas\n");
+      mostrar_guia();
+      break;
+    case 3:
+      printf("Saliendo del juego...\n");
+      salir = true;
+      break;
     }
-
-  } while (tecla != ENTER);
-
-  // Una vez que se presionó ENTER, limpiar pantalla y mostrar la selección definitiva
-  system("cls");
-  switch (seleccion) {
-  case 0:
-    printf("Has seleccionado: Jugar\n");
-    crear_partida();
-    break;
-  case 1:
-    printf("Has seleccionado: Cargar partida\n");
-    cargar_partida();
-    break;
-  case 2:
-    printf("Has seleccionado: Reglas\n");
-    mostrar_guia();
-    break;
-  case 3:
-    printf("Saliendo del juego...\n");
-    break;
+    presioneTeclaParaContinuar();
   }
 
   // Restaurar color por si se imprime algo más después (opcional)

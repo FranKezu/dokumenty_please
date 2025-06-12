@@ -143,7 +143,7 @@ Pair * firstMap(HashMap * map) {
     return NULL;
 }
 
-Pair * nextMap(HashMap * map) {
+Pair *nextMap(HashMap * map) {
     if (map == NULL || map->buckets == NULL) return NULL;
 
     for(unsigned long i = (map->current + 1); i < map->capacity;i++){ // recorremos desde el current en vez desde la pos 0
@@ -155,4 +155,8 @@ Pair * nextMap(HashMap * map) {
     }
 
     return NULL;
+}
+
+int sizeMap(HashMap *map) {
+    return map->size;
 }
