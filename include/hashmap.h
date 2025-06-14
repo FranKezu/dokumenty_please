@@ -1,11 +1,3 @@
-//
-//  HashMap.h
-//  TablaHashLab
-//
-//  Created by Matias Barrientos on 11-08-18.
-//  Copyright © 2018 Matias Barrientos. All rights reserved.
-//
-
 #ifndef HashMap_h
 #define HashMap_h
 

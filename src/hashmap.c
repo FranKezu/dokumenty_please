@@ -1,10 +1,10 @@
+#include "../include/hashmap.h"
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <math.h>
 #include <ctype.h>
-#include "../include/hashmap.h"
-
 
 typedef struct HashMap HashMap;
 int enlarge_called=0;

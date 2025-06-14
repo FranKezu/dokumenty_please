@@ -11,7 +11,7 @@ Estructura de Datos (ICI2240-2)
 
 <div align="center">
 
-<img src="data/portada.jpg" width="450px" alt="Portada del proyecto"/>
+<img src="assets/portada.jpg" width="450px" alt="Portada del proyecto"/>
 
 ---
 

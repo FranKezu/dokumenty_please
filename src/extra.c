@@ -1,8 +1,59 @@
 #include "../include/extra.h"
-
+#include "../include/hashmap.h"
+#include "../estructuras.h"
 
 #define MAX_LINE_LENGTH 1024
 #define MAX_FIELDS 300
+
+char *leer_char() {
+  char buffer[51];
+  while (1) {
+    printf("Ingrese el nombre de la partida: ");
+    fflush(stdout); // Asegura que el mensaje se imprima antes del input
+
+    if (fgets(buffer, sizeof(buffer), stdin) == NULL) continue;
+
+    buffer[strcspn(buffer, "\n")] = '\0'; // Eliminar salto de línea
+
+    if (strlen(buffer) == 0) {
+      printf("El nombre no puede estar vacío.\n");
+      continue;
+    }
+
+    char * nombre = malloc(strlen(buffer) + 1);
+    if (!nombre) {
+      printf("Error de memoria.\n");
+      exit(1);
+    }
+    strcpy(nombre, buffer);
+    return nombre;
+  }
+}
+
+HashMap *leer_partidas() {
+  FILE *archivo = fopen("data/partida.csv", "r");
+
+  if (!archivo) {
+    printf("Error al abrir el archivo %s\n", "data/partida.csv");
+    return NULL;
+  }
+
+  HashMap *mapa = createMap(100);
+  char **campos;
+  // Leer y descartar encabezado
+  campos = leer_linea_csv(archivo, ',');
+  while ((campos = leer_linea_csv(archivo, ',')) != NULL) {
+    if (!campos[0]) continue;
+      tipoPartida *partida = malloc(sizeof(tipoPartida));
+      partida->nombre_partida = strdup(campos[0]);
+      partida->dia_actual = atoi(campos[1]);
+      partida->aura = atoi(campos[2]);
+      //partida->listaPersonas = NULL; // No se carga de momento
+      insertMap(mapa, partida->nombre_partida, partida);
+  }
+  fclose(archivo);
+  return mapa;
+}
 
 char **leer_linea_csv(FILE *archivo, char separador) {
   static char linea[MAX_LINE_LENGTH];

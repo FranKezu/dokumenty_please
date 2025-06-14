@@ -1,5 +1,6 @@
 #include "../include/menu.h"
-#define MENU_H
+#include "../include/hashmap.h"
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <conio.h>
