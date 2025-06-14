@@ -1,12 +1,20 @@
 #include "../include/menu.h"
 #include "../include/hashmap.h"
+// añadi este include para la funcion de la colas
+#include "../include/queue.h"
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <conio.h>
 #include <windows.h>
 #include <mmsystem.h>
+// añadi el stdbool para comprobar si es que se leia bien los datos en el csv y tambien el estructuras.h para cuando creara el tipoSujeto en la funcion de leer archivos sujetos
+#include <stdbool.h>
+#include <estructuras.h>
+
 #pragma comment(lib, "Winmm.lib")
+
+
 
 void mostrar_barra_progreso(float segundos) {
   int ancho_barra = 30; // Largo de la barra
@@ -139,3 +147,127 @@ void inicio_turno(int dia) {
   printf("Un visitante entra lentamente al puesto de control...\n");
   Sleep(2000);
 }
+
+
+// esta funcion de igual forma es un boceto ya que no entendi muy bien como van a querer contar los dias 
+// si con un numero fijo de atender sujetos o de otra forma personalmente no entendi como quieren hacer eso :c
+
+Queue *cargar_sujetos_del_dia(int dia_actual, HashMap *mapa_sujetos, HashMap *mapa_dnis, HashMap *mapa_pasaportes) {
+    Queue *cola_sujetos = createQueue();
+    char buffer[256];
+    // Leer sujetos.csv
+    if (!leer_archivo_sujetos("data/sujetos.csv", mapa_sujetos, cola_sujetos)) {
+        printf("Error al cargar sujetos.\n");
+        return cola_sujetos; // Retorna cola vacía en caso de error
+    }
+    // Leer DNI.csv
+    if (!leer_archivo_dnis("data/DNI.csv", mapa_dnis)) {
+        printf("Error al cargar DNIs.\n");
+        return cola_sujetos;
+    }
+    // Leer pasaportes.csv
+    if (!leer_archivo_pasaportes("data/pasaportes.csv", mapa_pasaportes)) {
+        printf("Error al cargar pasaportes.\n");
+        return cola_sujetos;
+    }
+    // Ajustar número de sujetos según dificultad 
+    ajustar_numero_sujetos(cola_sujetos, dia_actual);
+    return cola_sujetos;
+}
+
+
+// funcion para leer el csv del sujeto en el mapa si es que lo queremos recorrer de una (aunque no se que tan necesario sea)
+// el queue si lo necesitamos como especificamos en el documento que vamos a ocupar cola para leer los sujetos jejeje :,v
+
+bool leer_archivo_sujetos(const char *nombre_archivo, HashMap *mapa_sujetos, Queue *cola_sujetos) {
+    FILE *archivo = fopen(nombre_archivo, "r");
+    if (!archivo) {
+        printf("Error: No se pudo abrir %s\n", nombre_archivo);
+        return false;
+    }
+    char buffer[256];
+    // Saltar primera línea (encabezado)
+    if (!fgets(buffer, sizeof(buffer), archivo)) {
+        fclose(archivo);
+        return false;
+    }
+    while (fgets(buffer, sizeof(buffer), archivo)) {
+        buffer[strcspn(buffer, "\n")] = 0;  // Eliminar salto de línea
+        tipoSujeto *sujeto = malloc(sizeof(tipoSujeto));
+        if (sujeto == NULL) {
+            fclose(archivo);
+            return false; // Falla asignación memoria
+        }
+        char *token = strtok(buffer, ",");
+        if (!token) { free(sujeto); continue; }
+        sujeto->ID = atoi(token);
+        token = strtok(NULL, ",");
+        if (!token) { free(sujeto); continue; }
+        sujeto->dinero = atoi(token);
+        token = strtok(NULL, ",");
+        if (!token) { free(sujeto); continue; }
+        sujeto->nombre = strdup(token);
+        token = strtok(NULL, ",");
+        if (!token) { free(sujeto->nombre); free(sujeto); continue; }
+        sujeto->genero = strdup(token);
+        token = strtok(NULL, ",");
+        if (!token) {
+            free(sujeto->genero);
+            free(sujeto->nombre);
+            free(sujeto);
+            continue;
+        }
+        sujeto->motivo_viaje = strdup(token);
+        token = strtok(NULL, ",");
+        if (!token) {
+            free(sujeto->motivo_viaje);
+            free(sujeto->genero);
+            free(sujeto->nombre);
+            free(sujeto);
+            continue;
+        }
+        sujeto->habilitado = atoi(token);
+        // Insertar sujeto en hashmap con clave ID. Usar puntero como clave es inseguro, usar ID convertido a cadena o wrapper:
+        // Para evitar problema de direcciones, creamos una clave estática para ID:
+        // Pero para esta función, uso int * clave dinámica:
+        int *clave_id = malloc(sizeof(int));
+        if (!clave_id) {
+            // Liberar strings y sujeto
+            free(sujeto->motivo_viaje);
+            free(sujeto->genero);
+            free(sujeto->nombre);
+            free(sujeto);
+            fclose(archivo);
+            return false;
+        }
+        *clave_id = sujeto->ID;
+        insertMap(mapa_sujetos, (char *)clave_id, sujeto);
+        // Encolar sujeto en la cola
+        queue_insert(cola_sujetos, sujeto);
+    }
+    fclose(archivo);
+    return true;
+}
+
+
+/* no se me ocurre como enlazar la partida con los csv pero este seria un boceto como para identificar si es que se leen bien las colas aunque a mi ni me meo la wea
+
+void empezar_partida(HashMap *mapa_partidas, HashMap *mapa_sujetos, HashMap *mapa_dnis, HashMap *mapa_pasaportes, char *nombre_partida) {
+    Pair *par = searchMap(mapa_partidas, nombre_partida);
+    tipoPartida *partida = (tipoPartida *) par->value;
+    printf("\nPartida '%s' cargada exitosamente.\n", partida->nombre_partida);
+    
+    // Cargar sujetos del día actual
+    Queue *cola_sujetos = cargar_sujetos_del_dia(partida->dia_actual, mapa_sujetos, mapa_dnis, mapa_pasaportes);
+    
+    // Verificar si la cola de sujetos se ha cargado correctamente
+    if (cola_sujetos == NULL || isEmptyQueue(cola_sujetos)) {
+        printf("No se han cargado sujetos para el día %d.\n", partida->dia_actual);
+    } else {
+        printf("Sujetos cargados para el día %d:\n", partida->dia_actual);
+        // Mostrar información de los sujetos sin eliminarlos
+        mostrar_sujetos_en_cola(cola_sujetos);
+    }
+}
+
+*/

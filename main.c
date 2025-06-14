@@ -21,7 +21,7 @@
 // PROTOTIPOS
 void empezar_partida(HashMap *, char *);
 void crear_partida(HashMap *);
-void cargar_partida(HashMap *);;
+void cargar_partida(HashMap *);
 void mostrar_guia();
 
 void empezar_partida(HashMap *mapa_partidas, char *nombre_partida){
@@ -140,6 +140,12 @@ int main() {
   bool salir = false;
 
   HashMap * mapa_partidas = leer_partidas();
+
+  //HashMap *mapa_sujetos = createHashMap();
+  //HashMap *mapa_pasaportes = createHashMap();
+  //HashMap *mapa_dnis = createHashMap();
+  
+
   while (!salir) {
     do {
       menu_principal(seleccion);
