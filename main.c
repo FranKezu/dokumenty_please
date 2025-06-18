@@ -37,6 +37,7 @@ void empezar_partida(HashMap *mapa_partidas, char *nombre_partida){
 void crear_partida(HashMap *mapa_partidas) {
   system("cls"); // Limpiar pantalla
   printf("Creando una nueva partida...\n");
+  printf("Ingrese el nombre de la partida: ");
   char *nombre = leer_char();
 
   //Verificar nombre duplicado (aquí es cuando el hashmap brilla O(1) chabales)
@@ -141,9 +142,9 @@ int main() {
 
   HashMap * mapa_partidas = leer_partidas();
 
-  //HashMap *mapa_sujetos = createHashMap();
-  //HashMap *mapa_pasaportes = createHashMap();
-  //HashMap *mapa_dnis = createHashMap();
+  HashMap *mapa_sujetos = leer_sujetos();
+  HashMap *mapa_pasaportes = leer_pasaportes();
+  HashMap *mapa_dni = leer_dni();
   
 
   while (!salir) {

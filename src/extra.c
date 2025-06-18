@@ -8,8 +8,7 @@
 char *leer_char() {
   char buffer[51];
   while (1) {
-    printf("Ingrese el nombre de la partida: ");
-    fflush(stdout); // Asegura que el mensaje se imprima antes del input
+    //fflush(stdout); // Asegura que el mensaje se imprima antes del input
 
     if (fgets(buffer, sizeof(buffer), stdin) == NULL) continue;
 
@@ -50,6 +49,97 @@ HashMap *leer_partidas() {
       partida->aura = atoi(campos[2]);
       //partida->listaPersonas = NULL; // No se carga de momento
       insertMap(mapa, partida->nombre_partida, partida);
+  }
+  fclose(archivo);
+  return mapa;
+}
+
+HashMap *leer_sujetos() {
+  FILE *archivo = fopen("data/sujetos.csv", "r");
+
+  if (!archivo) {
+    printf("Error al abrir el archivo %s\n", "data/sujetos.csv");
+    return NULL;
+  }
+
+  HashMap *mapa = createMap(2000);
+  char **campos;
+  // Leer y descartar encabezado
+  campos = leer_linea_csv(archivo, ',');
+  int i = 0;
+  while ((campos = leer_linea_csv(archivo, ',')) != NULL) {
+    if (!campos[0]) continue;
+      tipoSujeto *sujeto = malloc(sizeof(tipoSujeto));
+      sujeto->nombre = strdup(campos[0]);
+      sujeto->genero = strdup(campos[1]);
+      sujeto->motivo = strdup(campos[2]);
+      sujeto->dinero = atof(campos[3]);
+      sujeto->habilitado = false;
+      
+      char ID[10];
+      sprintf(ID, "%d", i);
+      insertMap(mapa, ID, sujeto);
+      i++;
+  }
+  fclose(archivo);
+  return mapa;
+}
+
+HashMap *leer_pasaportes() {
+  FILE *archivo = fopen("data/pasaportes.csv", "r");
+
+  if (!archivo) {
+    printf("Error al abrir el archivo %s\n", "data/pasaportes.csv");
+    return NULL;
+  }
+
+  HashMap *mapa = createMap(2000);
+  char **campos;
+  // Leer y descartar encabezado
+  campos = leer_linea_csv(archivo, ',');
+  int i = 0;
+  while ((campos = leer_linea_csv(archivo, ',')) != NULL) {
+    if (!campos[0]) continue;
+      tipoPasaporte *pasaporte = malloc(sizeof(tipoPasaporte));
+      pasaporte->nombre = strdup(campos[0]);
+      pasaporte->pais = strdup(campos[1]);
+      pasaporte->pasaporte = strdup(campos[2]);
+      pasaporte->documento = strdup(campos[3]);
+      pasaporte->caducidad = strdup(campos[4]);
+      char ID[10];
+      sprintf(ID, "%d", i);
+      insertMap(mapa, ID, pasaporte);
+      i++;
+  }
+  fclose(archivo);
+  return mapa;
+}
+
+HashMap *leer_dni() {
+  FILE *archivo = fopen("data/DNI.csv", "r");
+
+  if (!archivo) {
+    printf("Error al abrir el archivo %s\n", "data/DNI.csv");
+    return NULL;
+  }
+
+  HashMap *mapa = createMap(2000);
+  char **campos;
+  // Leer y descartar encabezado
+  campos = leer_linea_csv(archivo, ',');
+  int i = 0;
+  while ((campos = leer_linea_csv(archivo, ',')) != NULL) {
+    if (!campos[0]) continue;
+      tipoDNI *dni = malloc(sizeof(tipoDNI));
+      dni->nombre = strdup(campos[0]);
+      dni->documento = strdup(campos[1]);
+      dni->nacimiento = strdup(campos[2]);
+      dni->pais = strdup(campos[3]);
+      dni->caducidad = strdup(campos[4]);
+      char ID[10];
+      sprintf(ID, "%d", i);
+      insertMap(mapa, ID, dni);
+      i++;
   }
   fclose(archivo);
   return mapa;

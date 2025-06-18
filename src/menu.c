@@ -1,20 +1,16 @@
 #include "../include/menu.h"
 #include "../include/hashmap.h"
-// añadi este include para la funcion de la colas
 #include "../include/queue.h"
+#include "../estructuras.h"
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <conio.h>
 #include <windows.h>
 #include <mmsystem.h>
-// añadi el stdbool para comprobar si es que se leia bien los datos en el csv y tambien el estructuras.h para cuando creara el tipoSujeto en la funcion de leer archivos sujetos
 #include <stdbool.h>
-#include <estructuras.h>
 
 #pragma comment(lib, "Winmm.lib")
-
-
 
 void mostrar_barra_progreso(float segundos) {
   int ancho_barra = 30; // Largo de la barra
@@ -152,33 +148,7 @@ void inicio_turno(int dia) {
 // esta funcion de igual forma es un boceto ya que no entendi muy bien como van a querer contar los dias 
 // si con un numero fijo de atender sujetos o de otra forma personalmente no entendi como quieren hacer eso :c
 
-Queue *cargar_sujetos_del_dia(int dia_actual, HashMap *mapa_sujetos, HashMap *mapa_dnis, HashMap *mapa_pasaportes) {
-    Queue *cola_sujetos = createQueue();
-    char buffer[256];
-    // Leer sujetos.csv
-    if (!leer_archivo_sujetos("data/sujetos.csv", mapa_sujetos, cola_sujetos)) {
-        printf("Error al cargar sujetos.\n");
-        return cola_sujetos; // Retorna cola vacía en caso de error
-    }
-    // Leer DNI.csv
-    if (!leer_archivo_dnis("data/DNI.csv", mapa_dnis)) {
-        printf("Error al cargar DNIs.\n");
-        return cola_sujetos;
-    }
-    // Leer pasaportes.csv
-    if (!leer_archivo_pasaportes("data/pasaportes.csv", mapa_pasaportes)) {
-        printf("Error al cargar pasaportes.\n");
-        return cola_sujetos;
-    }
-    // Ajustar número de sujetos según dificultad 
-    ajustar_numero_sujetos(cola_sujetos, dia_actual);
-    return cola_sujetos;
-}
-
-
-// funcion para leer el csv del sujeto en el mapa si es que lo queremos recorrer de una (aunque no se que tan necesario sea)
-// el queue si lo necesitamos como especificamos en el documento que vamos a ocupar cola para leer los sujetos jejeje :,v
-
+/*
 bool leer_archivo_sujetos(const char *nombre_archivo, HashMap *mapa_sujetos, Queue *cola_sujetos) {
     FILE *archivo = fopen(nombre_archivo, "r");
     if (!archivo) {
@@ -247,7 +217,7 @@ bool leer_archivo_sujetos(const char *nombre_archivo, HashMap *mapa_sujetos, Que
     }
     fclose(archivo);
     return true;
-}
+}*/
 
 
 /* no se me ocurre como enlazar la partida con los csv pero este seria un boceto como para identificar si es que se leen bien las colas aunque a mi ni me meo la wea

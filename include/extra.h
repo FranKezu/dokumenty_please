@@ -10,6 +10,10 @@
 
 HashMap *leer_partidas();
 
+HashMap *leer_dni();
+HashMap *leer_pasaportes();
+HashMap *leer_sujetos();
+
 char *leer_char();
 
 char **leer_linea_csv(FILE *archivo, char separador);

@@ -4,17 +4,15 @@
 #include <stdbool.h>
 
 typedef struct {
-  int ID; // Identificador único del sujeto.
   int dinero; // Cantidad de dinero que posee la persona.
   char *nombre; // Nombre completo del sujeto.
   char *genero; // Indica el género del sujeto.
-  char *motivo_viaje; // Contiene la razón del viaje.     
+  char *motivo; // Contiene la razón del viaje.     
   bool habilitado; // Indica si puede ingresar o no.
 } tipoSujeto;
 
 // Estructura que representa a una persona que desea ingresar al país
-typedef struct {
-  int ID; // Identificador único del sujeto.     
+typedef struct {     
   char *nombre; // Nombre completo del sujeto.
   char *documento; // Número de documento.
   char *nacimiento; // Fecha de nacimiento.
@@ -24,10 +22,10 @@ typedef struct {
 
 // Estructura que representa el pasaporte de la persona que desea ingresar.
 typedef struct {
-  int ID; // Identificador único del sujeto.
   char *nombre; // Nombre completo del sujeto.
   char *pais; // País emisor del pasaporte.
   char *documento; // Número de documento del pasaporte.
+  char *pasaporte; // Número del pasaporte.
   char *emision; // Fecha de emisión del pasaporte.
   char *caducidad; // Fecha de expiración del pasaporte.
 } tipoPasaporte;
