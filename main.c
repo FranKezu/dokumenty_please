@@ -141,7 +141,6 @@ int main() {
   bool salir = false;
 
   HashMap * mapa_partidas = leer_partidas();
-
   HashMap *mapa_sujetos = leer_sujetos();
   HashMap *mapa_pasaportes = leer_pasaportes();
   HashMap *mapa_dni = leer_dni();

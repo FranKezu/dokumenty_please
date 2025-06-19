@@ -11,9 +11,9 @@ int enlarge_called=0;
 
 struct HashMap {
     Pair ** buckets;
-    long size; //cantidad de datos/pairs en la tabla
-    long capacity; //capacidad de la tabla
-    long current; //indice del ultimo dato accedido
+    long size;
+    long capacity;
+    long current;
 };
 
 Pair * createPair( char * key,  void * value) {
@@ -50,14 +50,14 @@ void insertMap(HashMap * map, char * key, void * value) {
     if ((float)map->size / map->capacity > 0.7) enlarge(map);
     
     unsigned long index = hash(key, map->capacity);
-    unsigned long originalIndex = index; //Guarda la pos en donde debería insertarse
+    unsigned long originalIndex = index;
     
     do{
-        Pair *bucket = map->buckets[index]; //sea accede al bucket que esta en esa pos
+        Pair *bucket = map->buckets[index];
         
         if(bucket == NULL || bucket->key == NULL){
             
-            char *key_copy = strdup(key); // Copia segura
+            char *key_copy = strdup(key);
             Pair *newPair = createPair(key_copy, value);
 
             map->buckets[index] = newPair;
@@ -66,14 +66,14 @@ void insertMap(HashMap * map, char * key, void * value) {
             return;
         }
 
-        if(is_equal(bucket->key,key)) return; //La clave ya existia
+        if(is_equal(bucket->key,key)) return;
 
-        index = (index + 1) % map->capacity; //En caso de colision se le busca el siguiente
+        index = (index + 1) % map->capacity;
     }while(originalIndex != index);
 }
 
 void enlarge(HashMap * map) {
-    enlarge_called = 1; //no borrar (testing purposes)
+    enlarge_called = 1;
 
     Pair **old_bucket = map->buckets;
     map->capacity *= 2;
@@ -88,7 +88,6 @@ void enlarge(HashMap * map) {
     }
     free(old_bucket);
 }
-
 
 HashMap * createMap(long capacity) {
     HashMap *map = (HashMap *) malloc(sizeof(HashMap));
@@ -109,13 +108,13 @@ void eraseMap(HashMap * map,  char * key) {
     }
 }
 
-Pair * searchMap(HashMap * map,  char * key) {   
+Pair *searchMap(HashMap * map,  char * key) {   
     unsigned long index = hash(key, map->capacity);
-    unsigned long originalIndex = index; //Guarda la pos en donde debería estar la key buscada
+    unsigned long originalIndex = index;
 
     while(1){
         Pair *bucket = map->buckets[index];
-        if(bucket == NULL) return NULL; //No esta la key
+        if(bucket == NULL) return NULL;
 
         if(bucket != NULL && is_equal(bucket->key,key)){
             map->current = index;
@@ -130,7 +129,7 @@ Pair * searchMap(HashMap * map,  char * key) {
     return NULL;
 }
 
-Pair * firstMap(HashMap * map) {
+Pair *firstMap(HashMap * map) {
     if (map == NULL || map->buckets == NULL) return NULL;
 
     for(unsigned long i = 0; i < map->capacity;i++){
