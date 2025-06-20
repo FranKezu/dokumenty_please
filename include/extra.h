@@ -10,6 +10,8 @@
 
 HashMap *leer_partidas();
 
+HashMap *leer_procesados(); 
+
 HashMap *leer_dni();
 
 HashMap *leer_pasaportes();
@@ -21,8 +23,6 @@ char *leer_char();
 char **leer_linea_csv(FILE *archivo, char separador);
 
 List *split_string(const char *str, const char *delim);
-
-void limpiarPantalla();
 
 void presioneTeclaParaContinuar();
 

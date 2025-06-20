@@ -1,6 +1,7 @@
 #include "../include/menu.h"
 #include "../include/hashmap.h"
 #include "../include/queue.h"
+#include "../include/extra.h"
 #include "../estructuras.h"
 
 #include <stdio.h>
@@ -144,15 +145,15 @@ void inicio_turno(int dia) {
   Sleep(2000);
 }
 
-
 void mostrar_DNI(tipoDNI *dni){
+  system("cls");
   printf("╔════════════════════════════════════════════════════════════════════════════════════════════╗\n");
   printf("║                                               │                                            ║\n");
   printf("║                 #######                       │       NOMBRE:        %-22s║\n", dni->nombre);
   printf("║               ###########                     │       RUT / ID:      %-22s║\n", dni->documento);
   printf("║              #############                    │       NACIMIENTO:    %-22s║\n", dni->nacimiento);
   printf("║             ###############                   │       NACIONALIDAD:  %-22s║\n", dni->pais);
-  printf("║             ###############                   │       SEXO:          MASCULINO║\n");
+  printf("║             ###############                   │       SEXO:          MASCULINO             ║\n");
   printf("║             ###############                   │       VÁLIDO HASTA:  %-22s║\n", dni->caducidad);
   printf("║             ###############                   │                                            ║\n");
   printf("║              #############                    │       8888888b.  888b    888 8888888       ║\n");
@@ -167,6 +168,7 @@ void mostrar_DNI(tipoDNI *dni){
 }
 
 void mostrar_pasaporte(tipoPasaporte *pasaporte){
+  system("cls");
   printf("╔════════════════════════════════════════════════════════════════════════════════════════════╗\n");
   printf("║                     ☭ ПАСПОРТ СОЮЗА СОВЕТСКИХ СОЦИАЛИСТИЧЕСКИХ РЕСПУБЛИК ☭                 ║\n");
   printf("║                     ☭ PASSPORT OF THE UNION OF SOVIET SOCIALIST REPUBLICS ☭                ║\n");
@@ -191,8 +193,6 @@ void mostrar_pasaporte(tipoPasaporte *pasaporte){
   printf("║                        ☭ ВЫДАН МИНИСТЕРСТВОМ ВНУТРЕННИХ ДЕЛ СССР ☭                         ║\n");
   printf("║                     ☭ AUTHORIZED BY THE SOVIET MINISTRY OF SECURITY ☭                      ║\n");
   printf("╚════════════════════════════════════════════════════════════════════════════════════════════╝\n");
-
-
 }
 
 void menu_acciones(Queue *cola, tipoPersona *persona) {
@@ -208,35 +208,27 @@ void menu_acciones(Queue *cola, tipoPersona *persona) {
     printf("2. Inspeccionar Pasaporte\n");
     printf("3. Aprobar\n");
     printf("4. Rechazar\n");
-    printf("5. Salir\n");
     printf("Ingrese su opción:");
     scanf(" %c", & opcion);
 
     switch (opcion) {
     case '1':
       mostrar_DNI(persona->dni);
-      
       break;
     case '2':
-      // Lógica para inspeccionar pasaporte
       mostrar_pasaporte(persona->pasaporte);
       break;
     case '3':
-      printf(" Saliendo del menú de veredicto...\n");
+      printf("\nHas aprobado a %s\n", persona->sujeto->nombre);
       break;
     case '4':
+      printf("\nHas rechazado a %s\n", persona->sujeto->nombre);
       break;
     default:
       printf("\n Opción no válida. Intente de nuevo.\n");
-      // No decrementa acciones para opciones inválidas
       break;
     }
-
-
-    // Simula presionar tecla para continuar (puedes usar tu función presioneTeclaParaContinuar)
-    printf("Presione una tecla para continuar...\n");
-    getchar(); // Limpia buffer
-    getchar(); // Espera entrada
-  } while (opcion != '5');
+    presioneTeclaParaContinuar();
+  } while (opcion != '3' && opcion != '4');
 }
 

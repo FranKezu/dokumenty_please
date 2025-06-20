@@ -27,9 +27,7 @@ Queue *encolar_personas(tipoMapas);
 void mostrar_guia();
 
 
-void mostrar_menu_dia(tipoMapas mapas, tipoPartida *partida){
-  
-  
+void empezar_dia(tipoMapas mapas, tipoPartida *partida){
   printf("Día : %d Hora: 00:00\n", partida->dia_actual);
   printf("Comienza el turno...\n");
   
@@ -38,13 +36,7 @@ void mostrar_menu_dia(tipoMapas mapas, tipoPartida *partida){
   while(contador != 7){
     printf("Se acerca la persona numero: %d\n",contador);
     tipoPersona *persona = (tipoPersona *)queue_remove(cola_diaria);
-    
-    menu_acciones(cola_diaria,persona);
-    //sonidito de gemidos
-    //mostrar datos persona
-    //FUNCION NO VISIBLES PARA EL J
-    //VEREDICTO = ACCIONES DISPONIBLES (INSPECCIONAR DNI, INSPECCIONAR PASAPORTE, RECHAZAR/APROBAR) PARA LUEGO VER SI PASA O NO
-    //Sujeto procesado asignarlo en el csv
+    menu_acciones(cola_diaria, persona);
     contador++;
   }
 }
@@ -55,8 +47,7 @@ void empezar_partida(tipoMapas mapas, char *nombre_partida){
   tipoPartida *partida = (tipoPartida *) par->value;
   printf("\nPartida '%s' cargada exitosamente.\n", partida->nombre_partida);
 
-  mostrar_menu_dia(mapas,partida); //INICIAR PARTIDA 
-  //guardar_progreso()
+  empezar_dia(mapas, partida);
 }
 
 // Función para crear una nueva partida solicitando el nombre
@@ -235,9 +226,6 @@ Queue *encolar_personas(tipoMapas mapas){
   
   return cola_personas;
 }
-
-
-
 int main() {
   setlocale(LC_ALL, "es_ES.UTF-8"); // Para que se puedan ver tildes, ñ, y carácteres especiales.
 
@@ -290,9 +278,6 @@ int main() {
     }
     if(seleccion != 3) presioneTeclaParaContinuar();
   }
-
-  // Restaurar color por si se imprime algo más después (opcional) 
-  //SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE | FOREGROUND_INTENSITY);
 
   return 0;
 }
