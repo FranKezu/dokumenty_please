@@ -1,6 +1,7 @@
 #ifndef ESTRUCTURAS_H
 #define ESTRUCTURAS_H
 
+#include "include/hashmap.h"
 #include <stdbool.h>
 
 typedef struct {
@@ -48,9 +49,18 @@ typedef struct {
 
 // Estructura que contiene el registro de cada persona (sujeto/dni/pasaporte)
 typedef struct {
-  tipoSujeto sujeto;
-  tipoDNI dni;
-  tipoPasaporte pasaporte;
+  tipoSujeto *sujeto;
+  tipoDNI *dni;
+  tipoPasaporte *pasaporte; 
 } tipoPersona;
+
+typedef struct {
+  HashMap *mapa_partidas;
+  //HashMap *mapa_procesados;
+  
+  HashMap *mapa_sujetos;
+  HashMap *mapa_pasaportes; 
+  HashMap *mapa_dni;
+} tipoMapas;
 
 #endif // ESTRUCTURAS_H

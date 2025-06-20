@@ -145,99 +145,49 @@ void inicio_turno(int dia) {
 }
 
 
-// esta funcion de igual forma es un boceto ya que no entendi muy bien como van a querer contar los dias 
-// si con un numero fijo de atender sujetos o de otra forma personalmente no entendi como quieren hacer eso :c
 
-/*
-bool leer_archivo_sujetos(const char *nombre_archivo, HashMap *mapa_sujetos, Queue *cola_sujetos) {
-    FILE *archivo = fopen(nombre_archivo, "r");
-    if (!archivo) {
-        printf("Error: No se pudo abrir %s\n", nombre_archivo);
-        return false;
+void menu_acciones(Queue *cola, tipoPersona *persona) {
+  char opcion;
+  int aprobado = 0; // 1 para aprobar, 0 para rechazar
+  do {
+    system("cls");
+    printf("\n=== Menú de Veredicto ===\n");
+    printf("DATOS DEL SUJETO\n");
+    printf("%s\n",persona->sujeto->nombre);
+    printf("%s\n",persona->dni->pais);
+    printf("1. Inspeccionar DNI\n");
+    printf("2. Inspeccionar Pasaporte\n");
+    printf("3. Aprobar\n");
+    printf("4. Rechazar\n");
+    printf("5. Salir\n");
+    printf("Ingrese su opción:");
+    scanf(" %c", & opcion);
+
+    switch (opcion) {
+    case '1':
+      printf(" Inspeccionar DNI...\n");
+      // mostrar_DNI
+      
+      break;
+    case '2':
+      printf(" Inspeccionar Pasaporte...\n");
+      // Lógica para inspeccionar pasaporte
+      break;
+    case '3':
+      printf(" Saliendo del menú de veredicto...\n");
+      break;
+    case '4':
+      break;
+    default:
+      printf("\n Opción no válida. Intente de nuevo.\n");
+      // No decrementa acciones para opciones inválidas
+      break;
     }
-    char buffer[256];
-    // Saltar primera línea (encabezado)
-    if (!fgets(buffer, sizeof(buffer), archivo)) {
-        fclose(archivo);
-        return false;
-    }
-    while (fgets(buffer, sizeof(buffer), archivo)) {
-        buffer[strcspn(buffer, "\n")] = 0;  // Eliminar salto de línea
-        tipoSujeto *sujeto = malloc(sizeof(tipoSujeto));
-        if (sujeto == NULL) {
-            fclose(archivo);
-            return false; // Falla asignación memoria
-        }
-        char *token = strtok(buffer, ",");
-        if (!token) { free(sujeto); continue; }
-        sujeto->ID = atoi(token);
-        token = strtok(NULL, ",");
-        if (!token) { free(sujeto); continue; }
-        sujeto->dinero = atoi(token);
-        token = strtok(NULL, ",");
-        if (!token) { free(sujeto); continue; }
-        sujeto->nombre = strdup(token);
-        token = strtok(NULL, ",");
-        if (!token) { free(sujeto->nombre); free(sujeto); continue; }
-        sujeto->genero = strdup(token);
-        token = strtok(NULL, ",");
-        if (!token) {
-            free(sujeto->genero);
-            free(sujeto->nombre);
-            free(sujeto);
-            continue;
-        }
-        sujeto->motivo_viaje = strdup(token);
-        token = strtok(NULL, ",");
-        if (!token) {
-            free(sujeto->motivo_viaje);
-            free(sujeto->genero);
-            free(sujeto->nombre);
-            free(sujeto);
-            continue;
-        }
-        sujeto->habilitado = atoi(token);
-        // Insertar sujeto en hashmap con clave ID. Usar puntero como clave es inseguro, usar ID convertido a cadena o wrapper:
-        // Para evitar problema de direcciones, creamos una clave estática para ID:
-        // Pero para esta función, uso int * clave dinámica:
-        int *clave_id = malloc(sizeof(int));
-        if (!clave_id) {
-            // Liberar strings y sujeto
-            free(sujeto->motivo_viaje);
-            free(sujeto->genero);
-            free(sujeto->nombre);
-            free(sujeto);
-            fclose(archivo);
-            return false;
-        }
-        *clave_id = sujeto->ID;
-        insertMap(mapa_sujetos, (char *)clave_id, sujeto);
-        // Encolar sujeto en la cola
-        queue_insert(cola_sujetos, sujeto);
-    }
-    fclose(archivo);
-    return true;
-}*/
 
 
-/* no se me ocurre como enlazar la partida con los csv pero este seria un boceto como para identificar si es que se leen bien las colas aunque a mi ni me meo la wea
-
-void empezar_partida(HashMap *mapa_partidas, HashMap *mapa_sujetos, HashMap *mapa_dnis, HashMap *mapa_pasaportes, char *nombre_partida) {
-    Pair *par = searchMap(mapa_partidas, nombre_partida);
-    tipoPartida *partida = (tipoPartida *) par->value;
-    printf("\nPartida '%s' cargada exitosamente.\n", partida->nombre_partida);
-    
-    // Cargar sujetos del día actual
-    Queue *cola_sujetos = cargar_sujetos_del_dia(partida->dia_actual, mapa_sujetos, mapa_dnis, mapa_pasaportes);
-    
-    // Verificar si la cola de sujetos se ha cargado correctamente
-    if (cola_sujetos == NULL || isEmptyQueue(cola_sujetos)) {
-        printf("No se han cargado sujetos para el día %d.\n", partida->dia_actual);
-    } else {
-        printf("Sujetos cargados para el día %d:\n", partida->dia_actual);
-        // Mostrar información de los sujetos sin eliminarlos
-        mostrar_sujetos_en_cola(cola_sujetos);
-    }
+    // Simula presionar tecla para continuar (puedes usar tu función presioneTeclaParaContinuar)
+    printf("Presione una tecla para continuar...\n");
+    getchar(); // Limpia buffer
+    getchar(); // Espera entrada
+  } while (opcion != '5');
 }
-
-*/

@@ -13,28 +13,55 @@
 #include <locale.h>
 #include <conio.h>
 #include <windows.h>
+#include <time.h>
 
 #define ARRIBA 72
 #define ABAJO 80
 #define ENTER 13
 
 // PROTOTIPOS
-void empezar_partida(HashMap *, char *);
-void crear_partida(HashMap *);
-void cargar_partida(HashMap *);
+void empezar_partida(tipoMapas, char *);
+void crear_partida(tipoMapas);
+void cargar_partida(tipoMapas);
+Queue *encolar_personas(tipoMapas);
 void mostrar_guia();
 
-void empezar_partida(HashMap *mapa_partidas, char *nombre_partida){
+
+void mostrar_menu_dia(tipoMapas mapas, tipoPartida *partida){
+  
+  
+  printf("Día : %d Hora: 00:00\n", partida->dia_actual);
+  printf("Comienza el turno...\n");
+  
+  Queue *cola_diaria = encolar_personas(mapas); 
+  int contador = 1;
+  while(contador != 7){
+    printf("Se acerca la persona numero: %d\n",contador);
+    tipoPersona *persona = (tipoPersona *)queue_remove(cola_diaria);
+    
+    menu_acciones(cola_diaria,persona);
+    //sonidito de gemidos
+    //mostrar datos persona
+    //FUNCION NO VISIBLES PARA EL J
+    //VEREDICTO = ACCIONES DISPONIBLES (INSPECCIONAR DNI, INSPECCIONAR PASAPORTE, RECHAZAR/APROBAR) PARA LUEGO VER SI PASA O NO
+    //Sujeto procesado asignarlo en el csv
+    contador++;
+  }
+}
+
+void empezar_partida(tipoMapas mapas, char *nombre_partida){
+  HashMap *mapa_partidas = mapas.mapa_partidas;
   Pair *par = searchMap(mapa_partidas, nombre_partida);
   tipoPartida *partida = (tipoPartida *) par->value;
   printf("\nPartida '%s' cargada exitosamente.\n", partida->nombre_partida);
 
-  //mostrar_menu_dia()
+  mostrar_menu_dia(mapas,partida); //INICIAR PARTIDA 
   //guardar_progreso()
 }
 
 // Función para crear una nueva partida solicitando el nombre
-void crear_partida(HashMap *mapa_partidas) {
+void crear_partida(tipoMapas mapas) {
+  HashMap *mapa_partidas = mapas.mapa_partidas;
   system("cls"); // Limpiar pantalla
   printf("Creando una nueva partida...\n");
   printf("Ingrese el nombre de la partida: ");
@@ -85,7 +112,7 @@ void crear_partida(HashMap *mapa_partidas) {
   };
 
   imprimir(intro);
-  empezar_partida(mapa_partidas, nombre);
+  empezar_partida(mapas, nombre);
 }
 
 void mostrar_guia() {
@@ -134,8 +161,8 @@ void mostrar_guia() {
   getchar();
 }
 
-void cargar_partida(HashMap *mapa_partidas){
-
+void cargar_partida(tipoMapas mapas){
+  HashMap *mapa_partidas = mapas.mapa_partidas;
   if(firstMap(mapa_partidas) == NULL){
     puts("No se encontraron partidas guardadas.");
     return;
@@ -153,7 +180,7 @@ void cargar_partida(HashMap *mapa_partidas){
     printf("%d. %s\n", i + 1, nombres[i]);
     i++;
     par = nextMap(mapa_partidas);
-  }
+  } 
 
   //Opciones para el jugador
   int opcion;
@@ -173,7 +200,40 @@ void cargar_partida(HashMap *mapa_partidas){
     return;
   }
   
-  empezar_partida(mapa_partidas, nombre_seleccionado);
+  empezar_partida(mapas, nombre_seleccionado);
+}
+
+Queue *encolar_personas(tipoMapas mapas){
+  HashMap *mapa_sujetos = mapas.mapa_sujetos;
+  HashMap *mapa_pasaportes = mapas.mapa_pasaportes;
+  HashMap *mapa_dni = mapas.mapa_dni;
+
+  srand(time(NULL));
+
+  Queue *cola_personas = queue_create();
+  for(short i = 0; i < 7; i++){
+    int random = rand() % 1000;
+    char ID[10];
+    sprintf(ID, "%d", random);
+    
+    tipoPersona *persona = (tipoPersona *)malloc(sizeof(tipoPersona));
+    
+    Pair *Sujeto = searchMap(mapa_sujetos, ID);
+    persona->sujeto = Sujeto->value;
+    eraseMap(mapa_sujetos, ID);
+    
+    Pair *Pasaporte = searchMap(mapa_pasaportes, ID);
+    persona->pasaporte = Pasaporte->value;
+    eraseMap(mapa_pasaportes, ID);
+    
+    Pair *DNI = searchMap(mapa_dni, ID);
+    persona->dni = DNI->value;
+    eraseMap(mapa_dni, ID);
+
+    queue_insert(cola_personas, persona);
+  }
+  
+  return cola_personas;
 }
 
 
@@ -184,12 +244,15 @@ int main() {
   int tecla;
   bool salir = false;
 
-  HashMap * mapa_partidas = leer_partidas();
-  HashMap *mapa_sujetos = leer_sujetos();
-  HashMap *mapa_pasaportes = leer_pasaportes();
-  HashMap *mapa_dni = leer_dni();
-  
+  //Archivo de guardado
 
+  //Información de sujetos
+  tipoMapas mapas;
+  mapas.mapa_partidas = leer_partidas();
+  mapas.mapa_sujetos = leer_sujetos();
+  mapas.mapa_pasaportes = leer_pasaportes();
+  mapas.mapa_dni = leer_dni();
+  
   while (!salir) {
     do {
       menu_principal(seleccion);
@@ -209,11 +272,11 @@ int main() {
     switch (seleccion) {
     case 0:
       printf("Has seleccionado: Jugar\n");
-      crear_partida(mapa_partidas);
+      crear_partida(mapas);
       break;
     case 1:
       printf("Has seleccionado: Cargar partida\n");
-      cargar_partida(mapa_partidas);
+      cargar_partida(mapas);
       break;
     case 2:
       printf("Has seleccionado: Reglas\n");
@@ -227,7 +290,7 @@ int main() {
     if(seleccion != 3) presioneTeclaParaContinuar();
   }
 
-  // Restaurar color por si se imprime algo más después (opcional)
+  // Restaurar color por si se imprime algo más después (opcional) 
   //SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE | FOREGROUND_INTENSITY);
 
   return 0;
