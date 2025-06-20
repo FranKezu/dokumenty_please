@@ -46,4 +46,11 @@ typedef struct {
   // tipoProcesado *listaPersonas; // Lista de personas procesadas (implementarla luego).
 } tipoPartida;
 
+// Estructura que contiene el registro de cada persona (sujeto/dni/pasaporte)
+typedef struct {
+  tipoSujeto sujeto;
+  tipoDNI dni;
+  tipoPasaporte pasaporte;
+} tipoPersona;
+
 #endif // ESTRUCTURAS_H
