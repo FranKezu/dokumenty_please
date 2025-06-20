@@ -145,6 +145,55 @@ void inicio_turno(int dia) {
 }
 
 
+void mostrar_DNI(tipoDNI *dni){
+  printf("╔════════════════════════════════════════════════════════════════════════════════════════════╗\n");
+  printf("║                                               │                                            ║\n");
+  printf("║                 #######                       │       NOMBRE:        %-22s║\n", dni->nombre);
+  printf("║               ###########                     │       RUT / ID:      %-22s║\n", dni->documento);
+  printf("║              #############                    │       NACIMIENTO:    %-22s║\n", dni->nacimiento);
+  printf("║             ###############                   │       NACIONALIDAD:  %-22s║\n", dni->pais);
+  printf("║             ###############                   │       SEXO:          MASCULINO║\n");
+  printf("║             ###############                   │       VÁLIDO HASTA:  %-22s║\n", dni->caducidad);
+  printf("║             ###############                   │                                            ║\n");
+  printf("║              #############                    │       8888888b.  888b    888 8888888       ║\n");
+  printf("║               ###########                     │       888  \"Y88b 8888b   888   888         ║\n");
+  printf("║                #########                      │       888    888 88888b  888   888         ║\n");
+  printf("║                #########                      │       888    888 888Y88b 888   888         ║\n");
+  printf("║             ################                  │       888    888 888 Y88b888   888         ║\n");
+  printf("║          #####################                │       888    888 888  Y88888   888         ║\n");
+  printf("║       ###########################             │       888  .d88P 888   Y8888   888         ║\n");
+  printf("║      #############################            │       8888888P\"  888    Y888 8888888       ║\n");
+  printf("╚════════════════════════════════════════════════════════════════════════════════════════════╝\n");
+}
+
+void mostrar_pasaporte(tipoPasaporte *pasaporte){
+  printf("╔════════════════════════════════════════════════════════════════════════════════════════════╗\n");
+  printf("║                     ☭ ПАСПОРТ СОЮЗА СОВЕТСКИХ СОЦИАЛИСТИЧЕСКИХ РЕСПУБЛИК ☭                 ║\n");
+  printf("║                     ☭ PASSPORT OF THE UNION OF SOVIET SOCIALIST REPUBLICS ☭                ║\n");
+  printf("╠════════════════════════════════════════════════════════════════════════════════════════════╣\n");
+  printf("║███████████████████████████████████████████████│                                            ║\n");
+  printf("║█████████████████       ███████████████████████│       NOMBRE:        %-22s║\n", pasaporte->nombre);
+  printf("║███████████████           █████████████████████│       PAIS:          %-22s║\n", pasaporte->pais);
+  printf("║██████████████             ████████████████████│       DOCUMENTO:     %-22s║\n", pasaporte->documento);
+  printf("║█████████████               ███████████████████│       PASAPORTE:     %-22s║\n", pasaporte->pasaporte);
+  printf("║█████████████               ███████████████████│       EMISIÓN:       %-22s║\n", pasaporte->emision);
+  printf("║█████████████               ███████████████████│       VÁLIDO HASTA:  %-22s║\n", pasaporte->caducidad);
+  printf("║█████████████               ███████████████████│                                            ║\n");
+  printf("║██████████████             ████████████████████│       ╔════════════════════════════════╗   ║\n");
+  printf("║███████████████           █████████████████████│       ║                                ║   ║\n");
+  printf("║████████████████         ██████████████████████│       ║  Официальный паспорт СССР      ║   ║\n");
+  printf("║████████████████         ██████████████████████│       ║  Official passport of the USSR ║   ║\n");
+  printf("║█████████████                ██████████████████│       ║                                ║   ║\n");
+  printf("║██████████                     ████████████████│       ╚════════════════════════════════╝   ║\n");
+  printf("║███████                           █████████████│                                            ║\n");
+  printf("║██████                             ████████████│                                            ║\n");
+  printf("╠════════════════════════════════════════════════════════════════════════════════════════════╣\n");
+  printf("║                        ☭ ВЫДАН МИНИСТЕРСТВОМ ВНУТРЕННИХ ДЕЛ СССР ☭                         ║\n");
+  printf("║                     ☭ AUTHORIZED BY THE SOVIET MINISTRY OF SECURITY ☭                      ║\n");
+  printf("╚════════════════════════════════════════════════════════════════════════════════════════════╝\n");
+
+
+}
 
 void menu_acciones(Queue *cola, tipoPersona *persona) {
   char opcion;
@@ -165,13 +214,12 @@ void menu_acciones(Queue *cola, tipoPersona *persona) {
 
     switch (opcion) {
     case '1':
-      printf(" Inspeccionar DNI...\n");
-      // mostrar_DNI
+      mostrar_DNI(persona->dni);
       
       break;
     case '2':
-      printf(" Inspeccionar Pasaporte...\n");
       // Lógica para inspeccionar pasaporte
+      mostrar_pasaporte(persona->pasaporte);
       break;
     case '3':
       printf(" Saliendo del menú de veredicto...\n");
@@ -191,3 +239,4 @@ void menu_acciones(Queue *cola, tipoPersona *persona) {
     getchar(); // Espera entrada
   } while (opcion != '5');
 }
+
