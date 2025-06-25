@@ -174,6 +174,37 @@ void mostrar_DNI(tipoDNI *dni, tipoSujeto *sujeto){
   printf("╚═════════════════════════════════════════════════════════════════════════════════════════════╝\033[0m\n");
 }
 
+
+void mostrar_resumen_final(){
+  char *a[] = {
+    "\033[91m=== FIN DEL JUEGO ===\033[0m",
+    "\033[91m=== RESUMEN DE TUS DECISIONES ===\033[0m",
+    "\033[97mHas revisado un total de 50 documentos. En medio del frío y la presión, hiciste lo que creíste correcto...\033[0m",
+    "\033[93mPero recuerda, esto es la URSS. Aquí no se permiten errores, ni siquiera los pequeños.\033[0m",
+    "",
+    "\033[92m>> Aprobaste 23 personas...\033[92m",
+    "\033[91m>> Rechazaste a 27 ciudadanos...\033[91m",
+    "",
+    "\033[91m--- EVALUACIÓN FINAL ---\033[0m",
+    "\033[93m>> De los 23 aprobados, 7 resultaron ser espías o traidores. Han cometido actos contra el Estado.\033[0m",
+    "\033[93m>> De los 27 rechazados, 19 eran inocentes que solo buscaban una vida mejor.\033[0m",
+    "",
+    "\033[93m>> Tus errores han comprometido la seguridad y los valores de la nación.\033[0m",
+    "\033[93m>> Has perdido tu puesto en la Oficina Central de Inmigración.\033[0m",
+    "\033[93m>> Serás exiliado por traicionar la confianza del Partido.\033[0m",
+    "",
+    "\033[91mGloria a la URSS... pero no para ti.\033[0m",
+    "",
+    "",
+    "",
+    "\033[91m=== ENTRANDO AL GULAG... ===\033[91m",
+    
+    NULL
+  };
+
+  imprimir(a);
+}
+
 void mostrar_pasaporte(tipoPasaporte *pasaporte){
   system("cls");
 
@@ -201,6 +232,9 @@ void mostrar_pasaporte(tipoPasaporte *pasaporte){
   printf("║                           ☭ ВЫДАН МИНИСТЕРСТВОМ ВНУТРЕННИХ ДЕЛ СССР ☭                            ║\n");
   printf("║                        ☭ AUTHORIZED BY THE SOVIET MINISTRY OF SECURITY ☭                         ║\n");
   printf("╚══════════════════════════════════════════════════════════════════════════════════════════════════╝\033[0m\n");
+  presioneTeclaParaContinuar();
+  mostrar_resumen_final();
+  
 }
 
 void mostrar_sello(tipoDNI *dni, bool aprobado) {
