@@ -4,30 +4,30 @@
 #include "include/hashmap.h"
 #include <stdbool.h>
 
+// Estructura que representa los datos de una persona que desea ingresar al país
 typedef struct {
   int dinero; // Cantidad de dinero que posee la persona.
   char *nombre; // Nombre completo del sujeto.
-  char *genero; // Indica el género del sujeto.
-  char *motivo; // Contiene la razón del viaje.     
-  bool habilitado; // Indica si puede ingresar o no.
+  char *genero; // Indica el género del sujeto, femenino o masculino.
+  char *motivo; // Contiene la razón del viaje en una palabra. 
+  bool habilitado; // Indica si debería ingresar o no (el jugador no lo sabe).
 } tipoSujeto;
 
-// Estructura que representa a una persona que desea ingresar al país
+// Estructura que representa el DNI de una persona.
 typedef struct {     
   char *nombre; // Nombre completo del sujeto.
   char *documento; // Número de documento.
   char *nacimiento; // Fecha de nacimiento.
   char *pais; // País de origen.
-  char *caducidad; // Fecha de vencimiento del documento.
+  char *caducidad; // Fecha de vencimiento del DNI.
 } tipoDNI;
 
-// Estructura que representa el pasaporte de la persona que desea ingresar.
+// Estructura que representa el pasaporte de una persona.
 typedef struct {
   char *nombre; // Nombre completo del sujeto.
   char *pais; // País emisor del pasaporte.
-  char *documento; // Número de documento del pasaporte.
+  char *documento; // Número de documento del DNI.
   char *pasaporte; // Número del pasaporte.
-  char *emision; // Fecha de emisión del pasaporte.
   char *caducidad; // Fecha de expiración del pasaporte.
 } tipoPasaporte;
 
@@ -36,15 +36,14 @@ typedef struct {
   tipoSujeto persona; // Contiene los datos de la persona.
   char *motivo; // Motivo asociado a la decisión.
   int dia; // Día en que se tomó la decisión.
-  bool decision; // true si fue admitido, false si fue rechazado.
+  bool decision; // Registra la decisión del jugador, true si fue admitido, false si fue rechazado.
 } tipoProcesado;
 
 // Archivo de guardado con la información del progreso del jugador
 typedef struct {
   char *nombre_partida; // Nombre de la partida.
   int dia_actual; // Día actual en la partida.
-  int aura; // Puntuación acumulada.
-  // tipoProcesado *listaPersonas; // Lista de personas procesadas (implementarla luego).
+  int aura; // Representa la puntuación acumulada.
 } tipoPartida;
 
 // Estructura que contiene el registro de cada persona (sujeto/dni/pasaporte)

@@ -28,25 +28,27 @@ void mostrar_guia();
 
 
 void empezar_dia(tipoMapas mapas, tipoPartida *partida){
-  printf("Día : %d Hora: 00:00\n", partida->dia_actual);
-  printf("Comienza el turno...\n");
-  
+  printf("\033[33mDía: \033[37m%d \033[33m- Hora: \033[37m09:00\n\033[0m", partida->dia_actual);
+  printf("\033[37mInicia el turno...\n\n\033[0m");
+  presioneTeclaParaContinuar();
   Queue *cola_diaria = encolar_personas(mapas); 
   int contador = 1;
   while(contador != 7){
-    printf("Se acerca la persona numero: %d\n",contador);
+    printf("Se aproxima la persona número: %d\n\n", contador);
     tipoPersona *persona = (tipoPersona *)queue_remove(cola_diaria);
-    menu_acciones(cola_diaria, persona);
+    menu_acciones(cola_diaria, persona, partida);
     contador++;
   }
 }
+
 
 void empezar_partida(tipoMapas mapas, char *nombre_partida){
   HashMap *mapa_partidas = mapas.mapa_partidas;
   Pair *par = searchMap(mapa_partidas, nombre_partida);
   tipoPartida *partida = (tipoPartida *) par->value;
-  printf("\nPartida '%s' cargada exitosamente.\n", partida->nombre_partida);
 
+  system("cls");
+  printf("\nPartida '%s' iniciada exitosamente.\n\n", partida->nombre_partida);
   empezar_dia(mapas, partida);
 }
 
@@ -155,12 +157,12 @@ void mostrar_guia() {
 void cargar_partida(tipoMapas mapas){
   HashMap *mapa_partidas = mapas.mapa_partidas;
   if(firstMap(mapa_partidas) == NULL){
-    puts("No se encontraron partidas guardadas.");
+    printf("\033[91mNo se encontraron partidas guardadas.\033[0m\n");
     return;
   }
 
   //Mostrar partidas disponibles al jugador.
-  puts("Partidas guardadas disponibles:\n");
+  printf("\033[97mPartidas guardadas disponibles:\n\n\033[0m");
   int cantidad = sizeMap(mapa_partidas);
   char *nombres[cantidad]; // Array temporal.
   int i = 0;
@@ -168,18 +170,19 @@ void cargar_partida(tipoMapas mapas){
   Pair *par = firstMap(mapa_partidas);
   while (par != NULL && i < cantidad) {
     nombres[i] = par->key;
-    printf("%d. %s\n", i + 1, nombres[i]);
+    tipoPartida *p = (tipoPartida *) par->value;
+    printf("\033[91m%d.\033[0m \033[37m%s\033[0m (Día: \033[37m%d\033[0m)\n", i + 1, nombres[i], p->dia_actual);
     i++;
     par = nextMap(mapa_partidas);
-  } 
+  }
 
   //Opciones para el jugador
   int opcion;
-  printf("\nSeleccione una partida por número (1-%d): ", cantidad);
+  printf("\n\033[93mSeleccione una partida por número (1-%d): \033[0m", cantidad);
   scanf("%d", &opcion);
   getchar(); // Limpiar el buffer
   if (opcion < 1 || opcion > cantidad) {
-    printf("Selección inválida.\n");
+    printf("\033[91mSelección inválida.\033[0m\n");
     return;
   }
 
@@ -187,10 +190,12 @@ void cargar_partida(tipoMapas mapas){
   char *nombre_seleccionado = nombres[opcion - 1];
   Pair *partida_pair = searchMap(mapa_partidas, nombre_seleccionado);
   if (partida_pair == NULL || partida_pair->value == NULL) {
-    printf("Error al cargar la partida.\n");
+    printf("\033[91mError al cargar la partida.\033[0m\n");
     return;
   }
   
+  printf("\033[92m\nIniciando partida \"%s\"...\n\n\033[0m", nombre_seleccionado);
+  mostrar_barra_progreso(1);
   empezar_partida(mapas, nombre_seleccionado);
 }
 

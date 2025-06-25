@@ -12,6 +12,6 @@ void imprimir(char **texto);
 
 void menu_principal(int seleccion);
 
-void menu_acciones(Queue *, tipoPersona *);
+void menu_acciones(Queue *, tipoPersona *, tipoPartida *);
 
 #endif
