@@ -20,19 +20,19 @@ Estructura de Datos (ICI2240-2)
 <table>
   <tr>
     <td align="center">
-      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRMw8JU2VUUQK4rV54RXYVJgQripZUk6F1zCg&s" width="140px" alt="Franco Bernal"/><br/>
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRNeB-7epLFmbS-qUpHaZ5PONeak5rjSbvFz-csl5f3UTz1X8p091xm5UlOPGdszO1y4Nw&usqp=CAU" width="140px" alt="Franco Bernal"/><br/>
       <strong>Franco Bernal</strong>
     </td>
     <td align="center">
-      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS4-3ekCtjuGKaoh_Ns_A7nDhVX4qlm28itlw&s" width="140px" alt="Ariel Leiva"/><br/>
+      <img src="https://thumbs.dreamstime.com/b/canina-nerviosa-prepar%C3%A1ndose-para-una-importante-entrevista-de-trabajo-vestida-con-un-traje-peque%C3%B1o-y-sentada-en-escritorio-366742856.jpg" width="140px" alt="Ariel Leiva"/><br/>
       <strong>Ariel Leiva</strong>
     </td>
     <td align="center">
-      <img src="https://http2.mlstatic.com/D_NQ_NP_718068-MLA83745617934_042025-O.webp" width="140px" alt="Felipe Romero"/><br/>
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT5nGHdJsfETtE8GiME7ddb2bpk1HzJPi28hw&s" width="140px" alt="Felipe Romero"/><br/>
       <strong>Felipe Romero</strong>
     </td>
     <td align="center">
-      <img src="https://tr.rbxcdn.com/180DAY-4c077d0d72a520f50e4180aef89c2ece/420/420/Hat/Png/noFilter" width="140px" alt="Hugo Palomino"/><br/>
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTNP7paUaZNRj8LnZL_xta03_lQTGtnfOIxvRMFliCCpbw7iwHk0oIdMSmZCXtH_XQqeMM&usqp=CAU" width="140px" alt="Hugo Palomino"/><br/>
       <strong>Hugo Palomino</strong>
     </td>
   </tr>
