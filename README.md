@@ -20,11 +20,11 @@ Estructura de Datos (ICI2240-2)
 <table>
   <tr>
     <td align="center">
-      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRDvFmTFXQQw7CLQeMCisp_aORNJv_zFMfdR3zfp-whMblqWonRoZwtGE8AaQGN2AVIykI&usqp=CAU" width="140px" alt="Franco Bernal"/><br/>
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRNeB-7epLFmbS-qUpHaZ5PONeak5rjSbvFz-csl5f3UTz1X8p091xm5UlOPGdszO1y4Nw&usqp=CAU" width="140px" alt="Franco Bernal"/><br/>
       <strong>Franco Bernal</strong>
     </td>
     <td align="center">
-      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSFxHOgEWdNsoD3LBhRsKejugInaVVv-vVIxw&s" width="140px" alt="Ariel Leiva"/><br/>
+      <img src="https://thumbs.dreamstime.com/b/canina-nerviosa-prepar%C3%A1ndose-para-una-importante-entrevista-de-trabajo-vestida-con-un-traje-peque%C3%B1o-y-sentada-en-escritorio-366742856.jpg" width="140px" alt="Ariel Leiva"/><br/>
       <strong>Ariel Leiva</strong>
     </td>
     <td align="center">
