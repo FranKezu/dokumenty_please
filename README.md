@@ -96,4 +96,3 @@ bin\run.exe
 
 - **Soporte**: solo Windows, usuarios de MacOS podrían tener dificultades ejecutando el programa.
 - **Entrada inválida**: si se ingresan caracteres cuando se solicita un número, el programa puede trabarse.
-- **NO LLEVAMOS NADA XD**: provlema prinsipal a solusionar.
