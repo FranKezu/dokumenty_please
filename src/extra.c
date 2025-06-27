@@ -54,33 +54,6 @@ HashMap *leer_partidas() {
   return mapa;
 }
 
-/*
-HashMap *leer_procesados() {
-  FILE *archivo = fopen("data/procesados.csv", "r");
-
-  if (!archivo) {
-    printf("Error al abrir el archivo %s\n", "data/procesados.csv");
-    return NULL;
-  }
-
-  HashMap *mapa = createMap(100);
-  char **campos;
-  // Leer y descartar encabezado
-  //partida,nombre_sujeto,ID,dinero,genero,motivo_viaje,dia,decision,motivo
-  campos = leer_linea_csv(archivo, ',');
-  while ((campos = leer_linea_csv(archivo, ',')) != NULL) {
-    if (!campos[0]) continue;
-      tipoProcesado *procesado = malloc(sizeof(tipoProcesado));
-      procesado->persona->nombre = strdup(campos[1]);
-      procesado->persona->dinero = atoi(campos[1]);
-      procesado->aura = atoi(campos[2]);
-      //partida->listaPersonas = NULL; // No se carga de momento
-      insertMap(mapa, campos[0], procesado);
-  }
-  fclose(archivo);
-  return mapa;
-}*/
-
 HashMap *leer_sujetos() {
   FILE *archivo = fopen("data/sujetos.csv", "r");
 
@@ -163,6 +136,7 @@ HashMap *leer_dni() {
       dni->nacimiento = strdup(campos[2]);
       dni->pais = strdup(campos[3]);
       dni->caducidad = strdup(campos[4]);
+      dni->genero = strdup(campos[5]);
       char ID[10];
       sprintf(ID, "%d", i);
       insertMap(mapa, ID, dni);

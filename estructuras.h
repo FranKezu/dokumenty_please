@@ -16,6 +16,7 @@ typedef struct {
 // Estructura que representa el DNI de una persona.
 typedef struct {     
   char *nombre; // Nombre completo del sujeto.
+  char *genero; // Indica el género del sujeto, femenino o masculino.
   char *documento; // Número de documento.
   char *nacimiento; // Fecha de nacimiento.
   char *pais; // País de origen.

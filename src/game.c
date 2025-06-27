@@ -20,15 +20,16 @@ bool calcular_habilitado(tipoPersona * persona, int dia) {
   tipoPasaporte * pasaporte = persona -> pasaporte;
   tipoDNI * DNI = persona -> dni;
 
-  int dificultad;
-  if (dia == 1)
-    dificultad = 1;
-  else if (dia == 2)
-    dificultad = 2;
-  else
-    dificultad = 3;
+  char num_Pasaporte[] = {'P', 'A', 'O', 'E'};
 
-  // Coindcidan nombres de Pasaporte y DNI
+  short random = rand() % 4;
+
+  int dificultad;
+  if (dia == 1) dificultad = 1;
+  else if (dia == 2) dificultad = 2;
+  else dificultad = 3;
+
+  // Coincidan nombres de Pasaporte y DNI
   if (dificultad >= 1) {
     if (strcmp(sujeto->nombre, DNI->nombre) != 0)
       return false;
@@ -41,7 +42,7 @@ bool calcular_habilitado(tipoPersona * persona, int dia) {
     if (strcmp(pasaporte->documento, DNI->documento) != 0) return false;
   }
   if (dificultad >= 3){
-    
+    if (pasaporte->documento[0] != num_Pasaporte[random]) return false;
   }
 
   return true;

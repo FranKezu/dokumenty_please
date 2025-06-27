@@ -3,6 +3,7 @@
 #include "../include/queue.h"
 #include "../include/extra.h"
 #include "../estructuras.h"
+#include "../include/game.h"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -145,7 +146,7 @@ void inicio_turno(int dia) {
   Sleep(2000);
 }
 
-void mostrar_DNI(tipoDNI *dni, tipoSujeto *sujeto){
+void mostrar_DNI(tipoDNI *dni){
   system("cls");
 
   printf("\033[93m╔═════════════════════════════════════════════════════════════════════════════════════════════╗\n");
@@ -155,7 +156,7 @@ void mostrar_DNI(tipoDNI *dni, tipoSujeto *sujeto){
   printf("║                                               │                                             ║\n");
   printf("║                 #######                       │       NOMBRE:        \033[37m%-23s\033[93m║\n", dni->nombre);
   printf("║               ###########                     │       PAÍS:          \033[37m%-23s\033[93m║\n", dni->pais);
-  printf("║              #############                    │       SEXO:          \033[37m%-23s\033[93m║\n",sujeto->genero);
+  printf("║              #############                    │       SEXO:          \033[37m%-23s\033[93m║\n",dni->genero);
   printf("║             ###############                   │       N° DOCUMENTO:  \033[37m%-23s\033[93m║\n", dni->documento);
   printf("║             ###############                   │       NACIMIENTO:    \033[37m%-23s\033[93m║\n", dni->nacimiento);
   printf("║             ###############                   │       VÁLIDO HASTA:  \033[37m%-23s\033[93m║\n", dni->caducidad);
@@ -234,20 +235,24 @@ void mostrar_pasaporte(tipoPasaporte *pasaporte){
   printf("╚══════════════════════════════════════════════════════════════════════════════════════════════════╝\033[0m\n");
 }
 
-void mostrar_sello(tipoDNI *dni, bool aprobado) {
+void mostrar_sello(tipoPersona *persona, tipoPartida *partida, bool aprobado) {
   char texto_aprobado[50] = "A P R O B A D O";
   char texto_rechazado[50] = "R E C H A Z A D O";
 
   printf("\n");
   if (aprobado) {
-    printf("\033[32m"); // Verde
-    printf("~~ %6s ~~\n", dni->nombre);
+    printf("\033[32m"); // Verdegcc main.c src\extra.c src\hashmap.c src\list.c src\menu.c src\queue.c src\game.c -o bin\run.exe
+    printf("~~ %6s ~~\n", persona->dni->nombre);
     printf("~~ %6s ~~\n\n", texto_aprobado);
   } else {
     printf("\033[91m"); // Rojo
-    printf("~~ %6s ~~\n", dni->nombre);
+    printf("~~ %6s ~~\n", persona->dni->nombre);
     printf("~~ %6s ~~\n\n", texto_rechazado);
   }
+  //calcular_habilitado(tipoPersona * persona, int dia)
+  persona->sujeto->habilitado = calcular_habilitado(persona, partida->dia_actual);
+  if(persona->sujeto->habilitado == true) printf("Correcto, buen trabajo\n\n");
+  else printf("Incorrecto, dejaste pasar a una persona no habilitada\n\n");
   printf("\033[0m"); // Reset
 }
 
@@ -272,16 +277,16 @@ void menu_acciones(Queue *cola, tipoPersona *persona, tipoPartida *partida) {
 
     switch (opcion) {
     case '1':
-      mostrar_DNI(persona->dni, persona->sujeto);
+      mostrar_DNI(persona->dni);
       break;
     case '2':
       mostrar_pasaporte(persona->pasaporte);
       break;
     case '3':
-      mostrar_sello(persona->dni, 1);
+      mostrar_sello(persona, partida, true);
       break;
     case '4':
-      mostrar_sello(persona->dni, 0);
+      mostrar_sello(persona, partida, false);
       break;
     default:
       printf("\n Opción no válida. Intente de nuevo.\n");

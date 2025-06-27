@@ -16,4 +16,6 @@ void menu_acciones(Queue *, tipoPersona *, tipoPartida *);
 
 void mostrar_guia();
 
+void mostrar_sello(tipoPersona *, tipoPartida *, bool);
+
 #endif
