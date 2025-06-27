@@ -14,4 +14,6 @@ void menu_principal(int seleccion);
 
 void menu_acciones(Queue *, tipoPersona *, tipoPartida *);
 
+void mostrar_guia();
+
 #endif

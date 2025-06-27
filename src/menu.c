@@ -215,7 +215,7 @@ void mostrar_pasaporte(tipoPasaporte *pasaporte){
   printf("║███████████████████████████████████████████████│                                                  ║\n");
   printf("║█████████████████       ███████████████████████│      NOMBRE:        \033[37m%-29s\033[91m║\n", pasaporte->nombre);
   printf("║███████████████           █████████████████████│      PAÍS:          \033[37m%-29s\033[91m║\n", pasaporte->pais);
-  printf("║██████████████             ████████████████████│      N° DOCUMENTO:  \033[37m%-29s\033[91m║\n", pasaporte->documento);
+  printf("║██████████████             ████████████████████│      N° DNI:        \033[37m%-29s\033[91m║\n", pasaporte->documento);
   printf("║█████████████               ███████████████████│      N° PASAPORTE:  \033[37m%-29s\033[91m║\n", pasaporte->pasaporte);
   printf("║█████████████               ███████████████████│      VÁLIDO HASTA:  \033[37m%-29s\033[91m║\n", pasaporte->caducidad);
   printf("║█████████████               ███████████████████│                                                  ║\n");
@@ -232,9 +232,6 @@ void mostrar_pasaporte(tipoPasaporte *pasaporte){
   printf("║                           ☭ ВЫДАН МИНИСТЕРСТВОМ ВНУТРЕННИХ ДЕЛ СССР ☭                            ║\n");
   printf("║                        ☭ AUTHORIZED BY THE SOVIET MINISTRY OF SECURITY ☭                         ║\n");
   printf("╚══════════════════════════════════════════════════════════════════════════════════════════════════╝\033[0m\n");
-  presioneTeclaParaContinuar();
-  mostrar_resumen_final();
-  
 }
 
 void mostrar_sello(tipoDNI *dni, bool aprobado) {
@@ -294,3 +291,48 @@ void menu_acciones(Queue *cola, tipoPersona *persona, tipoPartida *partida) {
   } while (opcion != '3' && opcion != '4');
 }
 
+void mostrar_guia() {
+  system("cls"); 
+
+  char *reglas[] = {
+    "\033[91m=== REGLAS BÁSICAS DE DOKUMENTY PLEASE ===\033[0m",
+    "",
+    "\033[97m1. Objetivo del Juego\033[0m",
+    "\033[37mEres un oficial en un puesto fronterizo de la Unión Soviética durante la Guerra Fría. Tu misión es:\033[0m",
+    "\033[37m- Revisar documentos (pasaportes, DNI, permisos) de civiles, soldados y refugiados.\033[0m",
+    "\033[37m- Proteger la seguridad nacional detectando infiltrados o documentos falsos.\033[0m",
+    "\033[37m- Equilibrar las órdenes del gobierno con dilemas morales que afectan la historia.\033[0m",
+    "",
+    "\033[97m2. Cómo Jugar\033[0m",
+    "\033[37m- Revisa los documentos de cada persona, comparando nombres, IDs, países y fechas.\033[0m",
+    "\033[37m- Asegúrate de que sean válidos (no vencidos, sin errores).\033[0m",
+    "\033[37m- Decide: \033[92mAceptar (1)\033[37m para permitir el ingreso o \033[91mRechazar (0)\033[37m con un motivo.\033[0m",
+    "\033[37m- Cada día recibes reglas: qué documentos chequear, perfiles sospechosos o restricciones.\033[0m",
+    "",
+    "\033[97m3. Progresión y Puntuación\033[0m",
+    "\033[37m- Cada día atiendes a varias personas y avanzas al siguiente, con reglas más difíciles.\033[0m",
+    "\033[37m- Tu \033[92maura\033[37m refleja tu desempeño: sube con decisiones correctas, baja con errores.\033[0m",
+    "\033[37m- Guarda tu progreso en cualquier momento y carga partidas anteriores.\033[0m",
+    "",
+    "\033[97m4. Consecuencias\033[0m",
+    "\033[37m- Aceptar a un espía o rechazar a un inocente tiene consecuencias en la historia.\033[0m",
+    "\033[37m- Tus elecciones desbloquean diferentes finales según tu aura.\033[0m",
+    "",
+    "\033[97m5. Interfaz y Controles\033[0m",
+    "\033[37m- Usa \033[93mflechas\033[37m para navegar menús y \033[93mEnter\033[37m para seleccionar.\033[0m",
+    "\033[37m- Ingresa el nombre de la partida (máximo 50 caracteres).\033[0m",
+    "\033[37m- Decide con \033[92m1 (Aceptar)\033[37m o \033[91m0 (Rechazar)\033[37m.\033[0m",
+    "",
+    "\033[97m6. Eventos Especiales\033[0m",
+    "\033[37m- Eventos aleatorios (cambios de reglas o situaciones históricas) afectan el juego.\033[0m",
+    "\033[37m- La dificultad crece con más personas y reglas complejas.\033[0m",
+    "",
+    "\033[91m=== ¡POR LA PATRIA, CAMARADA! ===\033[0m",
+    NULL
+  };
+
+  imprimir(reglas);
+
+  printf("\nPresiona Enter para volver al menú principal...");
+  getchar();
+}
