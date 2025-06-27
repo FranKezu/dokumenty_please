@@ -20,19 +20,19 @@ Estructura de Datos (ICI2240-2)
 <table>
   <tr>
     <td align="center">
-      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRMw8JU2VUUQK4rV54RXYVJgQripZUk6F1zCg&s" width="140px" alt="Franco Bernal"/><br/>
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRDvFmTFXQQw7CLQeMCisp_aORNJv_zFMfdR3zfp-whMblqWonRoZwtGE8AaQGN2AVIykI&usqp=CAU" width="140px" alt="Franco Bernal"/><br/>
       <strong>Franco Bernal</strong>
     </td>
     <td align="center">
-      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS4-3ekCtjuGKaoh_Ns_A7nDhVX4qlm28itlw&s" width="140px" alt="Ariel Leiva"/><br/>
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSFxHOgEWdNsoD3LBhRsKejugInaVVv-vVIxw&s" width="140px" alt="Ariel Leiva"/><br/>
       <strong>Ariel Leiva</strong>
     </td>
     <td align="center">
-      <img src="https://http2.mlstatic.com/D_NQ_NP_718068-MLA83745617934_042025-O.webp" width="140px" alt="Felipe Romero"/><br/>
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT5nGHdJsfETtE8GiME7ddb2bpk1HzJPi28hw&s" width="140px" alt="Felipe Romero"/><br/>
       <strong>Felipe Romero</strong>
     </td>
     <td align="center">
-      <img src="https://tr.rbxcdn.com/180DAY-4c077d0d72a520f50e4180aef89c2ece/420/420/Hat/Png/noFilter" width="140px" alt="Hugo Palomino"/><br/>
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTNP7paUaZNRj8LnZL_xta03_lQTGtnfOIxvRMFliCCpbw7iwHk0oIdMSmZCXtH_XQqeMM&usqp=CAU" width="140px" alt="Hugo Palomino"/><br/>
       <strong>Hugo Palomino</strong>
     </td>
   </tr>
