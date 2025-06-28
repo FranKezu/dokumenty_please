@@ -56,6 +56,9 @@ bool calcular_habilitado(tipoPersona * persona, int dia) {
     if ((DNI -> caducidad[3] == '0') && (DNI -> caducidad[4] == '2') || (DNI -> caducidad[3] == '0') && (DNI -> caducidad[4] == '1')) {
       return false;
     }
+    if ((pasaporte -> caducidad[3] == '0') && (pasaporte -> caducidad[4] == '2') || (pasaporte -> caducidad[3] == '0') && (pasaporte -> caducidad[4] =='1')) {
+      return false;
+    }
     // Regla 5: Los números de los documentos deben coincidir
     if (strcmp(pasaporte -> documento, DNI -> documento) != 0) {
       return false;
