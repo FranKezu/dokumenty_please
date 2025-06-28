@@ -94,8 +94,6 @@ void imprimir(char **texto) {
  * Parámetros:  Recibe como parámetro, la opción ingresada por el usuario
  *              
  */
-
-
 void menu_principal(int seleccion) {
   // Array con las opciones del menú
   char * opciones[] = {
@@ -236,11 +234,10 @@ void mostrar_pasaporte(tipoPasaporte *pasaporte){
  *
  *              
  *
- * Parámetros:  Recibe como parámetros la estructura tipoPersona, tipoPartida y un bool inicializado en aprobado
+ * Parámetros:  Recibe como parámetros la estructura tipoPersona, tipoPartida y un bool
  *              
  *              
  */
-
 void mostrar_sello(tipoPersona *persona, tipoPartida *partida, bool aprobado, bool decision) {
   char texto_aprobado[50] = "A P R O B A D O";
   char texto_rechazado[50] = "R E C H A Z A D O";
@@ -266,7 +263,17 @@ void mostrar_sello(tipoPersona *persona, tipoPartida *partida, bool aprobado, bo
   }
   printf("\033[0m"); // Reset
 }
-
+/*
+ * Función: calcular_final
+ * Descripción: Función para calcular el final del jugador según los puntos de aura que tiene. 
+ *              Se definen 3 finales, dos dependen de los puntos de aura, y se muestra un texto
+ *              por pantalla para estos finales, y el final restante se daría cuando el usuario 
+ *              llega al día 31 del juego.
+ *
+ * Parámetros:  Recibe como parámetro, la estructura tipoPartida, para recibir los puntos de aura
+ *              y el día.
+ *              
+ */
 void calcular_final(tipoPartida *partida){
   bool terminado = false;
   if(partida->aura <= -2000){
@@ -336,6 +343,19 @@ void calcular_final(tipoPartida *partida){
   }
 }
 
+
+
+/*
+ * Función: mostrar_reglas
+ * Descripción: Función para mostrar las reglas de inmigración para cada día. 
+ *              las reglas van cambiando y acumulándose, siendo una dificultad progresiva.
+ *              Se le muestran las reglas al jugador por pantalla. 
+ *              
+ *
+ * Parámetros:  Recibe como parámetro, el día para mostrar las reglas de cada día
+ *              
+ *              
+ */
 void mostrar_reglas(int dia) {
     // Título principal en rojo claro
     printf("\033[91mReglas de Inmigración - Día %d\033[0m\n", dia);
@@ -371,6 +391,18 @@ void mostrar_reglas(int dia) {
     printf("\n");
 }
 
+/*
+ * Función: menu_acciones
+ * Descripción: Función para mostrar el menú de opciones para cada persona, revisar sus documentos,
+ *              rechazarla o aprobarla, y actualizando el estado de la partida en cuestión.
+ *              Se le muestran las reglas al jugador por pantalla. 
+ *              
+ *
+ * Parámetros:  Recibe como parámetro, la cola de personas, la estructura tipoPersona para obtener los 
+ *              documentos pertinentes y la estructura tipoPartida, para obtener el día.
+ *              
+ *              
+ */
 void menu_acciones(Queue *cola, tipoPersona *persona, tipoPartida *partida) {
 
   char opcion;
@@ -413,6 +445,17 @@ void menu_acciones(Queue *cola, tipoPersona *persona, tipoPartida *partida) {
   } while (opcion != '3' && opcion != '4');
 }
 
+/*
+ * Función: mostrar_guia
+ * Descripción: Función para mostrar en el inicio del juego, antes de empezar, una guía básica para
+ *              poner en contexto al jugador y pueda entender el contexto histórico y sus responsabilidades.
+ *              Se aclaran los controles a usar y las tareas que debe realizar.
+ *              
+ *
+ * Parámetros:  Nada. 
+ *              
+ *              
+ */
 void mostrar_guia() {
   system("cls"); 
 
