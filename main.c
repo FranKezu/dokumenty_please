@@ -1,33 +1,19 @@
 #include "include/extra.h"
-
 #include "include/hashmap.h"
-
 #include "include/list.h"
-
 #include "include/menu.h"
-
 #include "include/queue.h"
-
 #include "include/game.h"
-
 #include "estructuras.h"
 
 #include <stdio.h>
-
 #include <stdlib.h>
-
 #include <ctype.h>
-
 #include <string.h>
-
 #include <stdbool.h>
-
 #include <locale.h>
-
 #include <conio.h>
-
 #include <windows.h>
-
 #include <time.h>
 
 #define ARRIBA 72

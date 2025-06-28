@@ -57,7 +57,6 @@ typedef struct {
 // Encapsulamiento de mapas
 typedef struct {
   HashMap *mapa_partidas;
-  //HashMap *mapa_procesados;
   HashMap *mapa_sujetos;
   HashMap *mapa_pasaportes; 
   HashMap *mapa_dni;

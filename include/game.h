@@ -15,6 +15,4 @@ Queue *encolar_personas(tipoMapas);
 
 bool calcular_habilitado(tipoPersona *, int);
 
-
-
 #endif

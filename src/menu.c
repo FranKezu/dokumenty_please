@@ -152,7 +152,7 @@ void mostrar_pasaporte(tipoPasaporte *pasaporte){
   printf("║███████████████████████████████████████████████│                                                  ║\n");
   printf("║█████████████████       ███████████████████████│      NOMBRE:        \033[37m%-29s\033[91m║\n", pasaporte->nombre);
   printf("║███████████████           █████████████████████│      PAÍS:          \033[37m%-29s\033[91m║\n", pasaporte->pais);
-  printf("║██████████████             ████████████████████│      N° DNI:        \033[37m%-29s\033[91m║\n", pasaporte->documento);
+  printf("║██████████████             ████████████████████│      N° DOCUMENTO:  \033[37m%-29s\033[91m║\n", pasaporte->documento);
   printf("║█████████████               ███████████████████│      N° PASAPORTE:  \033[37m%-29s\033[91m║\n", pasaporte->pasaporte);
   printf("║█████████████               ███████████████████│      VÁLIDO HASTA:  \033[37m%-29s\033[91m║\n", pasaporte->caducidad);
   printf("║█████████████               ███████████████████│                                                  ║\n");
@@ -171,13 +171,13 @@ void mostrar_pasaporte(tipoPasaporte *pasaporte){
   printf("╚══════════════════════════════════════════════════════════════════════════════════════════════════╝\033[0m\n");
 }
 
-void mostrar_sello(tipoPersona *persona, tipoPartida *partida, bool aprobado) {
+void mostrar_sello(tipoPersona *persona, tipoPartida *partida, bool aprobado, bool decision) {
   char texto_aprobado[50] = "A P R O B A D O";
   char texto_rechazado[50] = "R E C H A Z A D O";
 
   printf("\n");
   if (aprobado) {
-    printf("\033[32m"); // Verdegcc main.c src\extra.c src\hashmap.c src\list.c src\menu.c src\queue.c src\game.c -o bin\run.exe
+    printf("\033[32m");
     printf("~~ %6s ~~\n", persona->dni->nombre);
     printf("~~ %6s ~~\n\n", texto_aprobado);
   } else {
@@ -185,15 +185,14 @@ void mostrar_sello(tipoPersona *persona, tipoPartida *partida, bool aprobado) {
     printf("~~ %6s ~~\n", persona->dni->nombre);
     printf("~~ %6s ~~\n\n", texto_rechazado);
   }
-  //calcular_habilitado(tipoPersona * persona, int dia)
-  persona->sujeto->habilitado = calcular_habilitado(persona, partida->dia_actual);
-  if(persona->sujeto->habilitado){
+
+  if(decision == persona->sujeto->habilitado){
     partida->aura += 200;
-    printf("Correcto, buen trabajo\n\n");
+    printf("\033[32mCorrecto, buen trabajo\n\n");
   }  
   else{
     partida->aura -= 200;
-    printf("Incorrecto, dejaste pasar a una persona no habilitada\n\n");
+    printf("\033[91mIncorrecto, tomaste una decisión equivocada\n\n");
   }
   printf("\033[0m"); // Reset
 }
@@ -273,28 +272,29 @@ void mostrar_reglas(int dia) {
 
     // Reglas para el día 1
     if (dia >= 1) {
-        printf("\033[97m1.\033[0m \033[37mNombres deben coincidir en documentos.\033[0m\n");
-        printf("\033[97m2.\033[0m \033[37mRechazar motivos de turismo.\033[0m\n");
+        printf("\033[97m1.\033[0m \033[37mNombres deben coincidir en los documentos.\033[0m\n");
+        printf("\033[97m2.\033[0m \033[37mPaíses deben coindicir en los documentos.\033[0m\n");
+        printf("\033[97m3.\033[0m \033[37mRechazar motivos de turismo.\033[0m\n");
     }
 
     // Reglas para el día 2
     if (dia >= 2) {
-        printf("\033[97m3.\033[0m \033[37mDNI y pasaporte no deben estar vencidos.\033[0m\n");
-        printf("\033[97m4.\033[0m \033[37mNúmeros de documentos deben coincidir.\033[0m\n");
+        printf("\033[97m4.\033[0m \033[37mDNI y pasaporte no deben estar vencidos.\033[0m\n");
+        printf("\033[97m5.\033[0m \033[37mNúmeros de documentos deben coincidir.\033[0m\n");
     }
 
     // Reglas para el día 3
     if (dia >= 3) {
-        printf("\033[97m5.\033[0m \033[37mRechazar pasaportes con la letra 'O'.\033[0m\n");
-        printf("\033[97m6.\033[0m \033[37mProhibir ingreso a nacidos en agosto.\033[0m\n");
+        printf("\033[97m6.\033[0m \033[37mRechazar pasaportes con la letra 'O'.\033[0m\n");
+        printf("\033[97m7.\033[0m \033[37mProhibir ingreso a nacidos en agosto.\033[0m\n");
     }
 
     // Reglas para el día 4
     if (dia >= 4) {
-        printf("\033[97m7.\033[0m \033[37mProhibir ingreso a nacionalidad 'Letonia'.\033[0m\n");
-        printf("\033[97m8.\033[0m \033[37mRechazar a quienes tengan menos de 800 rublos.\033[0m\n");
-        printf("\033[97m9.\033[0m \033[37mRechazar a quienes tengan más de 2500 rublos.\033[0m\n");
-        printf("\033[97m10.\033[0m \033[37mRechazar motivos familiares.\033[0m\n");
+        printf("\033[97m8.\033[0m \033[37mProhibir ingreso a nacionalidad 'Letonia'.\033[0m\n");
+        printf("\033[97m9.\033[0m \033[37mRechazar a quienes tengan menos de 800 rublos.\033[0m\n");
+        printf("\033[97m10.\033[0m \033[37mRechazar a quienes tengan más de 2500 rublos.\033[0m\n");
+        printf("\033[97m11.\033[0m \033[37mRechazar motivos familiares.\033[0m\n");
     }
 
     // Instrucción final en verde
@@ -311,9 +311,9 @@ void menu_acciones(Queue *cola, tipoPersona *persona, tipoPartida *partida) {
     printf("\033[91m=== MENÚ DEL VEREDICTO ===\n\n\033[0m");
     printf("\033[97mInformación del sujeto\n\033[0m");
     printf("\033[37mNombre: %s\n", persona->sujeto->nombre);
-    printf("País: %s\n\033[0m\n", persona->dni->pais);
-    printf("Dinero: %d\n", persona->sujeto->dinero);
-    printf("Motivo de viaje: %s\n", persona->sujeto->motivo);
+    printf("País: %s\n\033[0m", persona->dni->pais);
+    printf("Dinero: %d rublos\n", persona->sujeto->dinero);
+    printf("Motivo de viaje: %s\n\n", persona->sujeto->motivo);
     printf("\033[37m1. Inspeccionar DNI\n");
     printf("2. Inspeccionar Pasaporte\n\033[0m");
     printf("\033[92m3. Aprobar\n");
@@ -329,10 +329,10 @@ void menu_acciones(Queue *cola, tipoPersona *persona, tipoPartida *partida) {
       mostrar_pasaporte(persona->pasaporte);
       break;
     case '3':
-      mostrar_sello(persona, partida, true);
+      mostrar_sello(persona, partida, true, true);
       break;
     case '4':
-      mostrar_sello(persona, partida, false);
+      mostrar_sello(persona, partida, false, false);
       break;
     default:
       printf("\n Opción no válida. Intente de nuevo.\n");
