@@ -82,6 +82,8 @@ void crear_partida(tipoMapas mapas) {
     "\033[92mLa obediencia al protocolo será recompensada por el Partido.\033[0m",
     "",
     "\033[91m=== ¡POR LA PATRIA Y EL PARTIDO! ===\033[0m",
+    "",
+    "\033[91mPresiona una tecla para continuar...\033[0m",
     NULL
   };
 

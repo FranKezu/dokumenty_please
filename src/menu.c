@@ -409,6 +409,7 @@ void menu_acciones(Queue *cola, tipoPersona *persona, tipoPartida *partida) {
   do {
     system("cls");
     printf("\033[93m\nDÍA \033[37m%d\n\033[93m\n\033[0m", partida->dia_actual);
+    printf("\033[93mFECHA: \033[37mAGOSTO\n\033[93m\n\033[0m");
     mostrar_reglas(partida->dia_actual);
     printf("\033[91m=== MENÚ DEL VEREDICTO ===\n\n\033[0m");
     printf("\033[97mInformación del sujeto\n\033[0m");
