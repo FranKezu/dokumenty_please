@@ -369,7 +369,7 @@ void mostrar_reglas(int dia) {
 
     // Reglas para el día 2
     if (dia >= 2) {
-        printf("\033[97m4.\033[0m \033[37mDNI y pasaporte no deben estar vencidos.\033[0m\n");
+        printf("\033[97m4.\033[0m \033[37mDNI y pasaporte no deben estar vencidos. (ENERO Y FEBRERO VENCIDOS)\033[0m\n");
         printf("\033[97m5.\033[0m \033[37mNúmeros de documentos deben coincidir.\033[0m\n");
     }
 
