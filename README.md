@@ -58,7 +58,7 @@ Esto abrirá automáticamente una consola con el juego corriendo.
 2. Compila el programa con el siguiente comando:
 
 ```bash
-gcc main.c src\extra.c src\hashmap.c src\heap.c src\list.c src\map.c src\menu.c -o bin\run.exe
+gcc main.c src\extra.c src\hashmap.c src\list.c src\menu.c src\queue.c src\game.c -o bin\run.exe -lwinmm
 ```
 
 3. Luego ejecútalo con:

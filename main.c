@@ -127,6 +127,7 @@ void cargar_partida(tipoMapas mapas) {
 
 int main() {
   setlocale(LC_ALL, "es_ES.UTF-8"); // Para que se puedan ver tildes, ñ, y carácteres especiales.
+  PlaySound("assets\\music.wav", NULL, SND_FILENAME | SND_ASYNC | SND_LOOP);
 
   int seleccion = 0;
   int tecla;
