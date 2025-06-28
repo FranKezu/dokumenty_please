@@ -298,7 +298,7 @@ void mostrar_reglas(int dia) {
     }
 
     // Instrucción final en verde
-    printf("\033[92m[Enter] para continuar\033[0m\n");
+    printf("\n");
 }
 
 void menu_acciones(Queue *cola, tipoPersona *persona, tipoPartida *partida) {
