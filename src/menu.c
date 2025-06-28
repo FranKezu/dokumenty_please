@@ -14,6 +14,15 @@
 
 #pragma comment(lib, "Winmm.lib")
 
+/*
+ * Función: mostrar_barra_progreso
+ * Descripción: Muestra una barra de progreso en consola que indica el avance de carga.
+ *              la cual tiene un tiempo predefinido, y no representa el tiempo de carga
+ *              real ya que es casi instantáneo, función meramente estética.
+ *              
+ * Parámetros: Recibe el tiempo en segundos que queremos que se demore en cargar la barra        
+ */
+
 void mostrar_barra_progreso(float segundos) {
   int ancho_barra = 30; // Largo de la barra
   int pasos = 40; // Actualizaciones fluidas
@@ -46,6 +55,15 @@ void mostrar_barra_progreso(float segundos) {
   printf("\n");
 }
 
+/*
+ * Función: imprimir
+ * Descripción: Función para mostrar texto de manera progresiva y con "animación", función
+ *              meramente estética.
+ *
+ * Parámetros:  Recibe como parámetro, el texto que queremos mostrar por pantalla
+ *          
+ */
+
 void imprimir(char **texto) {
   system("cls");
   HANDLE hCon = GetStdHandle(STD_OUTPUT_HANDLE);
@@ -65,7 +83,19 @@ void imprimir(char **texto) {
   getch();
 }
 
-// Imprime el menú con la opción seleccionada resaltada (con colores)
+
+/*
+ * Función: menu_principal
+ * Descripción: Función para mostrar las opciones principales en el menú del juego, empezar partida nueva
+ *              cargar partida, ver o revisar las reglas y salir del juego. El usuario marca una opción
+ *              desplazándose con las flechas del teclado y usando enter para ingresarla.
+ *              Se usan variedades de colores y colores de fondo del texto para hacerlo más "estético"
+ *
+ * Parámetros:  Recibe como parámetro, la opción ingresada por el usuario
+ *              
+ */
+
+
 void menu_principal(int seleccion) {
   // Array con las opciones del menú
   char * opciones[] = {
@@ -112,6 +142,18 @@ void menu_principal(int seleccion) {
   // Al salir de la función, los colores ya quedaron como los de texto blanco/fondo negro
 }
 
+/*
+ * Función: mostrar_DNI
+ * Descripción: Función para mostrar los datos del DNI de cada persona, así el jugador podrá revisar
+ *              minuciosamente los datos de la persona y tomar la decisión correcta, se usan print con
+ *              formas para hacer el juego un poco más gráfico dentro de la consola.
+ *              
+ *
+ * Parámetros:  Recibe como parámetro la estructura tipoDNI de una persona, para mostrar los datos que
+ *              pertenecen al DNI de cada persona
+ *              
+ */
+
 
 void mostrar_DNI(tipoDNI *dni){
   system("cls");
@@ -142,6 +184,21 @@ void mostrar_DNI(tipoDNI *dni){
   printf("╚═════════════════════════════════════════════════════════════════════════════════════════════╝\033[0m\n");
 }
 
+/*
+ * Función: mostrar_pasaporte
+ * Descripción: Función para mostrar los datos del pasaporte de cada persona, así el jugador podrá revisar
+ *              minuciosamente los datos de la persona y tomar la decisión correcta, se usan print con
+ *              formas para hacer el juego un poco más gráfico dentro de la consola. Todo lo que se vea
+ *              descuadrado aquí dentro del juego se ve bien. Al poder ver el DNI y el pasaporte de la persona
+ *              podrá revisar que los datos como "nombre", "país" y número de documento coincidan, además de las
+ *              reglas pertinentes a cada día.
+ *              
+ *
+ * Parámetros:  Recibe como parámetro la estructura tipoPasaporte de una persona, para mostrar los datos que
+ *              pertenecen al pasaporte de cada persona.
+ *              
+ */
+
 void mostrar_pasaporte(tipoPasaporte *pasaporte){
   system("cls");
 
@@ -170,6 +227,19 @@ void mostrar_pasaporte(tipoPasaporte *pasaporte){
   printf("║                        ☭ AUTHORIZED BY THE SOVIET MINISTRY OF SECURITY ☭                         ║\n");
   printf("╚══════════════════════════════════════════════════════════════════════════════════════════════════╝\033[0m\n");
 }
+
+/*
+ * Función: mostrar_sello
+ * Descripción: Función para mostrar un mensaje de aprobación o rechazo para una persona según la decisión del
+ *              jugador, usa la función calcular_habilitado para manejar el sistema de "aura puntos", y así sumar
+ *              o restar según si la decisón tomada por el jugador fue correcta o errónea, los "puntos aura".
+ *
+ *              
+ *
+ * Parámetros:  Recibe como parámetros la estructura tipoPersona, tipoPartida y un bool inicializado en aprobado
+ *              
+ *              
+ */
 
 void mostrar_sello(tipoPersona *persona, tipoPartida *partida, bool aprobado, bool decision) {
   char texto_aprobado[50] = "A P R O B A D O";
