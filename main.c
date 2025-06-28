@@ -24,7 +24,16 @@
 void cargar_partida(tipoMapas);
 void crear_partida(tipoMapas);
 
-// Función para crear una nueva partida solicitando el nombre
+/*
+ * Función: crear_partida
+ * Descripción: Función para crear una partida nueva, recibiendo el nombre que quiere ingresar el usuario.
+ *              Se crea la nueva partida y se almacena en el CSV de partidas.
+ *              Se muestra un mensaje de inicio por pantalla, y se inicializan los días.
+ *
+ * Parámetros:  Recibe la cápsula de mapas, para poder trabajar con los datos necesarios. 
+ *              
+ *              
+ */
 void crear_partida(tipoMapas mapas) {
   HashMap * mapa_partidas = mapas.mapa_partidas;
   system("cls"); // Limpiar pantalla
@@ -80,6 +89,16 @@ void crear_partida(tipoMapas mapas) {
   empezar_partida(mapas, nombre);
 }
 
+/*
+ * Función: cargar_partida
+ * Descripción: Función para cargar una partida ya existente, la busca en los HashMaps,
+ *              según el nombre insertado por el usuario, una vez encontrada la partida,
+ *              se la pasa a empezar partida.
+ *
+ * Parámetros:  Recibe la cápsula de mapas, para poder trabajar con los datos necesarios. 
+ *              
+ *              
+ */
 void cargar_partida(tipoMapas mapas) {
   HashMap * mapa_partidas = mapas.mapa_partidas;
   if (firstMap(mapa_partidas) == NULL) {
@@ -127,13 +146,11 @@ void cargar_partida(tipoMapas mapas) {
 
 int main() {
   setlocale(LC_ALL, "es_ES.UTF-8"); // Para que se puedan ver tildes, ñ, y carácteres especiales.
-  PlaySound("assets\\music.wav", NULL, SND_FILENAME | SND_ASYNC | SND_LOOP);
+  PlaySound("assets\\music.wav", NULL, SND_FILENAME | SND_ASYNC | SND_LOOP); //Para poner música en el juego
 
   int seleccion = 0;
   int tecla;
   bool salir = false;
-
-  // Archivo de guardado
 
   // Información de sujetos
   tipoMapas mapas;
