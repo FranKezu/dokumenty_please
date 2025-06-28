@@ -223,8 +223,109 @@ List *split_string(const char *str, const char *delim) {
   return result;
 }
 
+void eliminar_partida(char *nombre_partida) {
+    FILE *archivo = fopen("data/partida.csv", "r");
+    if (!archivo) {
+        printf("\033[91m>> Error al abrir el archivo de partidas.\033[0m\n");
+        return;
+    }
+
+    FILE *temp = fopen("data/temp.csv", "w");
+    if (!temp) {
+        printf("\033[91m>> Error al crear el archivo temporal.\033[0m\n");
+        fclose(archivo);
+        return;
+    }
+
+    char linea[256];
+    int encontrada = 0;
+
+    while (fgets(linea, sizeof(linea), archivo)) {
+        // Crear una copia limpia de la línea
+        char copia[256];
+        strcpy(copia, linea);
+
+        // Eliminar salto de línea (\n o \r\n)
+        copia[strcspn(copia, "\r\n")] = '\0';
+
+        List *campos = split_string(copia, ",");
+        if (!campos || list_size(campos) == 0) {
+            list_destroy(campos, free);
+            continue;
+        }
+
+        char *nombre = list_get(campos, 0);
+        if (nombre && strcmp(nombre, nombre_partida) == 0) {
+            encontrada = 1;  // No escribir esta línea
+            list_destroy(campos, free);
+            continue;
+        }
+
+        // Línea no coincide: la escribimos completa y tal cual
+        fputs(linea, temp);
+        list_destroy(campos, free);
+    }
+
+    fclose(archivo);
+    fclose(temp);
+
+    remove("data/partida.csv");
+    rename("data/temp.csv", "data/partida.csv");
+
+    if (encontrada) {
+        printf("\033[91m>> La partida \"%s\" ha sido eliminada por temas confidenciales .\033[0m\n", nombre_partida);
+    } else {
+        printf("\033[93m>> No se encontró la partida \"%s\" en el registro.\033[0m\n", nombre_partida);
+    }
+}
+
+void autoguardado(tipoPartida *partida) {
+    FILE *archivo_lectura = fopen("data/partida.csv", "r");
+    FILE *archivo_temp = fopen("data/partida_temp.csv", "w");
+    
+    if (!archivo_lectura || !archivo_temp) {
+        printf("Error al abrir los archivos para autoguardado\n");
+        if (archivo_lectura) fclose(archivo_lectura);
+        if (archivo_temp) fclose(archivo_temp);
+        return;
+    }
+
+    char **campos;
+    // Copiar encabezado
+    campos = leer_linea_csv(archivo_lectura, ',');
+    if (campos) {
+        fprintf(archivo_temp, "%s,%s,%s,\n", campos[0], campos[1], campos[2]);
+    }
+
+    // Procesar cada línea
+    while ((campos = leer_linea_csv(archivo_lectura, ',')) != NULL) {
+        if (!campos[0]) continue;
+        
+        // Si es la partida que queremos actualizar
+        if (strcmp(campos[0], partida->nombre_partida) == 0) {
+            // Escribir los datos actualizados
+            fprintf(archivo_temp, "%s,%d,%d,\n", 
+                   partida->nombre_partida,
+                   partida->dia_actual,
+                   partida->aura);
+        } else {
+            // Copiar la línea sin cambios, incluyendo la coma final
+            fprintf(archivo_temp, "%s,%s,%s,\n", campos[0], campos[1], campos[2]);
+        }
+    }
+
+    fclose(archivo_lectura);
+    fclose(archivo_temp);
+
+    // Reemplazar el archivo original con el temporal
+    remove("data/partida.csv");
+    rename("data/partida_temp.csv", "data/partida.csv");
+}
+
+
 void presioneTeclaParaContinuar() {
   puts("Presione una tecla para continuar...");
   getchar(); // Consume el '\n' del buffer de entrada
   getchar(); // Espera a que el usuario presione una tecla
 }
+

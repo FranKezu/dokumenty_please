@@ -112,39 +112,6 @@ void menu_principal(int seleccion) {
   // Al salir de la función, los colores ya quedaron como los de texto blanco/fondo negro
 }
 
-void inicio_turno(int dia) {
-  system("cls"); // Limpiar pantalla
-  printf("  Inicializando cabina de control");
-  for (int i = 0; i < 3; i++) {
-      Sleep(500);
-      printf(".");
-  }
-  printf("\n");
-  Sleep(600);
-  printf("  Preparando sellos oficiales y escáner");
-  for (int i = 0; i < 3; i++) {
-    Sleep(500);
-    printf(".");
-    }
-  printf("\n");
-  Sleep(1000);
-  printf("\n  >>> Puesto de inspección operativo.\n");
-  Sleep(1000);
-  printf("  >>> Puede comenzar el control de documentos.\n\n");
-  Sleep(1500);
-  printf("\n*Sonido metálico de puerta abriéndose lentamente*\n");
-  Sleep(1500);
-    /*
-    if (!PlaySound(TEXT("puerta.wav"), NULL, SND_FILENAME | SND_ASYNC)) {
-        printf("[PUERTA]: *Error al reproducir el sonido*\n");
-    } else {
-        printf("[PUERTA]: *Sonido de puerta reproduciéndose*\n");
-    }
-    */
-  Sleep(1000); 
-  printf("Un visitante entra lentamente al puesto de control...\n");
-  Sleep(2000);
-}
 
 void mostrar_DNI(tipoDNI *dni){
   system("cls");
@@ -173,37 +140,6 @@ void mostrar_DNI(tipoDNI *dni){
   printf("║                        ☭ ВЫДАН МИНИСТЕРСТВОМ ВНУТРЕННИХ ДЕЛ СССР ☭                          ║\n");
   printf("║                     ☭ AUTHORIZED BY THE SOVIET MINISTRY OF SECURITY ☭                       ║\n");
   printf("╚═════════════════════════════════════════════════════════════════════════════════════════════╝\033[0m\n");
-}
-
-
-void mostrar_resumen_final(){
-  char *a[] = {
-    "\033[91m=== FIN DEL JUEGO ===\033[0m",
-    "\033[91m=== RESUMEN DE TUS DECISIONES ===\033[0m",
-    "\033[97mHas revisado un total de 50 documentos. En medio del frío y la presión, hiciste lo que creíste correcto...\033[0m",
-    "\033[93mPero recuerda, esto es la URSS. Aquí no se permiten errores, ni siquiera los pequeños.\033[0m",
-    "",
-    "\033[92m>> Aprobaste 23 personas...\033[92m",
-    "\033[91m>> Rechazaste a 27 ciudadanos...\033[91m",
-    "",
-    "\033[91m--- EVALUACIÓN FINAL ---\033[0m",
-    "\033[93m>> De los 23 aprobados, 7 resultaron ser espías o traidores. Han cometido actos contra el Estado.\033[0m",
-    "\033[93m>> De los 27 rechazados, 19 eran inocentes que solo buscaban una vida mejor.\033[0m",
-    "",
-    "\033[93m>> Tus errores han comprometido la seguridad y los valores de la nación.\033[0m",
-    "\033[93m>> Has perdido tu puesto en la Oficina Central de Inmigración.\033[0m",
-    "\033[93m>> Serás exiliado por traicionar la confianza del Partido.\033[0m",
-    "",
-    "\033[91mGloria a la URSS... pero no para ti.\033[0m",
-    "",
-    "",
-    "",
-    "\033[91m=== ENTRANDO AL GULAG... ===\033[91m",
-    
-    NULL
-  };
-
-  imprimir(a);
 }
 
 void mostrar_pasaporte(tipoPasaporte *pasaporte){
@@ -251,23 +187,133 @@ void mostrar_sello(tipoPersona *persona, tipoPartida *partida, bool aprobado) {
   }
   //calcular_habilitado(tipoPersona * persona, int dia)
   persona->sujeto->habilitado = calcular_habilitado(persona, partida->dia_actual);
-  if(persona->sujeto->habilitado == true) printf("Correcto, buen trabajo\n\n");
-  else printf("Incorrecto, dejaste pasar a una persona no habilitada\n\n");
+  if(persona->sujeto->habilitado){
+    partida->aura += 200;
+    printf("Correcto, buen trabajo\n\n");
+  }  
+  else{
+    partida->aura -= 200;
+    printf("Incorrecto, dejaste pasar a una persona no habilitada\n\n");
+  }
   printf("\033[0m"); // Reset
 }
 
+void calcular_final(tipoPartida *partida){
+  bool terminado = false;
+  if(partida->aura <= -2000){
+    char *final_traidor[] = {
+    "\033[91m=== COMITÉ DE SEGURIDAD DEL ESTADO DE LA UNIÓN SOVIÉTICA ===\033[0m",
+    "\033[97mInforme Final de Evaluación Disciplinaria\033[0m",
+    "",
+    "\033[93m>> Estado del aura: -2000 (peligro nacional)\033[0m",
+    "",
+    "\033[91m>>> Camarada:\033[0m",
+    "\033[37mSus decisiones han puesto en riesgo la integridad de nuestra gloriosa nación.\033[0m",
+    "\033[37mHa permitido el ingreso de enemigos del pueblo, saboteadores y traidores.\033[0m",
+    "\033[37mEl Comité Central lo considera una amenaza para la seguridad estatal.\033[0m",
+    "",
+    "\033[91mHa sido destituido de su cargo y será juzgado por crímenes contra la patria.\033[0m",
+    "",
+    "\033[91m=== EL ESTADO NO OLVIDA ===\033[0m",
+    NULL};
+    imprimir(final_traidor);
+    terminado = true;
+  }
+
+  if(partida->aura >= 2000){
+    char *final_heroe[] = {
+    "\033[91m=== COMITÉ DE SEGURIDAD DEL ESTADO DE LA UNIÓN SOVIÉTICA ===\033[0m",
+    "\033[97mReconocimiento Oficial del Partido\033[0m",
+    "",
+    "\033[93m>> Estado del aura: +2000 (excelencia patriótica)\033[0m",
+    "",
+    "\033[91m>>> Camarada:\033[0m",
+    "\033[37mSu incansable labor ha salvaguardado la frontera de la URSS.\033[0m",
+    "\033[37mHa identificado y neutralizado amenazas con disciplina ejemplar.\033[0m",
+    "\033[37mEl Partido lo reconoce como un verdadero defensor del pueblo.\033[0m",
+    "",
+    "\033[92mHa sido condecorado con la Medalla al Mérito Fronterizo.\033[0m",
+    "\033[92mSe le ha asignado una vivienda digna y raciones dobles para su familia.\033[0m",
+    "",
+    "\033[91m=== ¡GLORIA AL CAMARADA INSPECTOR! ===\033[0m",
+    NULL};
+    imprimir(final_heroe);
+    terminado = true;
+  }
+
+  if(partida->dia_actual == 31){
+    char *final_retiro[] = {
+    "\033[91m=== COMITÉ DE SEGURIDAD DEL ESTADO DE LA UNIÓN SOVIÉTICA ===\033[0m",
+    "\033[97mInforme de Cese de Funciones\033[0m",
+    "",
+    "\033[93m>> Tiempo de servicio: 11 días continuos\033[0m",
+    "",
+    "\033[91m>>> Camarada:\033[0m",
+    "\033[37mSu período de asignación en el puesto fronterizo ha concluido.\033[0m",
+    "\033[37mEl Comité agradece sus servicios, sean cuales hayan sido sus resultados.\033[0m",
+    "\033[37mSerá relevado por otro inspector para continuar la vigilancia del puesto.\033[0m",
+    "",
+    "\033[92mPuede regresar a su hogar bajo supervisión del Partido.\033[0m",
+    "",
+    "\033[91m=== LA FRONTERA SIEMPRE VIGILA ===\033[0m",
+    NULL};
+    imprimir(final_retiro);
+    terminado = true;
+  }
+
+  if(terminado){
+    eliminar_partida(partida->nombre_partida);
+    exit(1);
+  }
+}
+
+void mostrar_reglas(int dia) {
+    // Título principal en rojo claro
+    printf("\033[91mReglas de Inmigración - Día %d\033[0m\n", dia);
+
+    // Reglas para el día 1
+    if (dia >= 1) {
+        printf("\033[97m1.\033[0m \033[37mNombres deben coincidir en documentos.\033[0m\n");
+        printf("\033[97m2.\033[0m \033[37mRechazar motivos de turismo.\033[0m\n");
+    }
+
+    // Reglas para el día 2
+    if (dia >= 2) {
+        printf("\033[97m3.\033[0m \033[37mDNI y pasaporte no deben estar vencidos.\033[0m\n");
+        printf("\033[97m4.\033[0m \033[37mNúmeros de documentos deben coincidir.\033[0m\n");
+    }
+
+    // Reglas para el día 3
+    if (dia >= 3) {
+        printf("\033[97m5.\033[0m \033[37mRechazar pasaportes con la letra 'O'.\033[0m\n");
+        printf("\033[97m6.\033[0m \033[37mProhibir ingreso a nacidos en agosto.\033[0m\n");
+    }
+
+    // Reglas para el día 4
+    if (dia >= 4) {
+        printf("\033[97m7.\033[0m \033[37mProhibir ingreso a nacionalidad 'Letonia'.\033[0m\n");
+        printf("\033[97m8.\033[0m \033[37mRechazar a quienes tengan menos de 800 rublos.\033[0m\n");
+        printf("\033[97m9.\033[0m \033[37mRechazar a quienes tengan más de 2500 rublos.\033[0m\n");
+        printf("\033[97m10.\033[0m \033[37mRechazar motivos familiares.\033[0m\n");
+    }
+
+    // Instrucción final en verde
+    printf("\033[92m[Enter] para continuar\033[0m\n");
+}
 
 void menu_acciones(Queue *cola, tipoPersona *persona, tipoPartida *partida) {
 
   char opcion;
-  int aprobado = 0; // 1 para aprobar, 0 para rechazar
   do {
     system("cls");
     printf("\033[93m\nDÍA \033[37m%d\n\033[93m\n\033[0m", partida->dia_actual);
+    mostrar_reglas(partida->dia_actual);
     printf("\033[91m=== MENÚ DEL VEREDICTO ===\n\n\033[0m");
     printf("\033[97mInformación del sujeto\n\033[0m");
     printf("\033[37mNombre: %s\n", persona->sujeto->nombre);
     printf("País: %s\n\033[0m\n", persona->dni->pais);
+    printf("Dinero: %d\n", persona->sujeto->dinero);
+    printf("Motivo de viaje: %s\n", persona->sujeto->motivo);
     printf("\033[37m1. Inspeccionar DNI\n");
     printf("2. Inspeccionar Pasaporte\n\033[0m");
     printf("\033[92m3. Aprobar\n");
@@ -292,6 +338,7 @@ void menu_acciones(Queue *cola, tipoPersona *persona, tipoPartida *partida) {
       printf("\n Opción no válida. Intente de nuevo.\n");
       break;
     }
+    calcular_final(partida);
     presioneTeclaParaContinuar();
   } while (opcion != '3' && opcion != '4');
 }
@@ -317,7 +364,10 @@ void mostrar_guia() {
     "\033[97m3. Progresión y Puntuación\033[0m",
     "\033[37m- Cada día atiendes a varias personas y avanzas al siguiente, con reglas más difíciles.\033[0m",
     "\033[37m- Tu \033[92maura\033[37m refleja tu desempeño: sube con decisiones correctas, baja con errores.\033[0m",
-    "\033[37m- Guarda tu progreso en cualquier momento y carga partidas anteriores.\033[0m",
+    "\033[37m- Si tu aura cae a \033[91m-2000 o menos\033[37m, pierdes y la partida se elimina.\033[0m",
+    "\033[37m- Si tu aura alcanza \033[92m+2000 o más\033[37m, ganas la partida.\033[0m",
+    "\033[37m- Tu progreso se guarda únicamente al finalizar el día.\033[0m",
+    "\033[37m- Carga partidas anteriores desde el menú principal.\033[0m",
     "",
     "\033[97m4. Consecuencias\033[0m",
     "\033[37m- Aceptar a un espía o rechazar a un inocente tiene consecuencias en la historia.\033[0m",
@@ -333,8 +383,7 @@ void mostrar_guia() {
     "\033[37m- La dificultad crece con más personas y reglas complejas.\033[0m",
     "",
     "\033[91m=== ¡POR LA PATRIA, CAMARADA! ===\033[0m",
-    NULL
-  };
+    NULL};
 
   imprimir(reglas);
 

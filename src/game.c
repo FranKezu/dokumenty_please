@@ -60,6 +60,10 @@ void empezar_dia(tipoMapas mapas, tipoPartida * partida) {
     menu_acciones(cola_diaria, persona, partida);
     contador++;
   }
+  system("cls");
+  partida->dia_actual +=1;
+  autoguardado(partida);
+  empezar_dia(mapas, partida);
 }
 
 void empezar_partida(tipoMapas mapas, char * nombre_partida) {
@@ -69,6 +73,7 @@ void empezar_partida(tipoMapas mapas, char * nombre_partida) {
 
   system("cls");
   printf("\nPartida '%s' iniciada exitosamente.\n\n", partida -> nombre_partida);
+  autoguardado(partida);
   empezar_dia(mapas, partida);
 }
 

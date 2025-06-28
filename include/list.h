@@ -40,4 +40,8 @@ void list_sortedInsert(List *L, void *data,
 
 int list_size(List* L);
 
+void *list_get(List *L, int index);
+
+void list_destroy(List *L, void (*free_fn)(void *));
+
 #endif

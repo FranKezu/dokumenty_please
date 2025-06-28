@@ -201,3 +201,31 @@ void list_clean(List *L) {
   L->current = NULL;
   L->size = 0;
 }
+
+void *list_get(List *L, int index) {
+  if (L == NULL || index < 0 || index >= L->size) return NULL;
+
+  Node *actual = L->head;
+  for (int i = 0; i < index; i++) {
+    if (actual == NULL) return NULL;
+    actual = actual->next;
+  }
+
+  return actual ? actual->data : NULL;
+}
+
+void list_destroy(List *L, void (*free_fn)(void *)) {
+  if (L == NULL) return;
+
+  Node *actual = L->head;
+  while (actual) {
+    Node *sig = actual->next;
+    if (free_fn && actual->data) {
+      free_fn(actual->data);  // libera el contenido
+    }
+    free(actual);             // libera el nodo
+    actual = sig;
+  }
+
+  free(L);  // libera la lista
+}
