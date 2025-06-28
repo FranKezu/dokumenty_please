@@ -296,7 +296,7 @@ void calcular_final(tipoPartida *partida){
     terminado = true;
   }
 
-  if(partida->aura >= 2000){
+  if(partida->aura >= 6000){
     char *final_heroe[] = {
     "\033[91m=== COMITÉ DE SEGURIDAD DEL ESTADO DE LA UNIÓN SOVIÉTICA ===\033[0m",
     "\033[97mReconocimiento Oficial del Partido\033[0m",
